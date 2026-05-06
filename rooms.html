@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Rooms & Suites | Grand Élysée Hotel — Luxury Accommodation</title>
+  <meta name="description" content="Browse our collection of luxury rooms and suites at Grand Élysée Hotel. From elegant Standard Rooms to the magnificent Royal Penthouse — every stay is an experience." />
+  <meta name="keywords" content="luxury hotel rooms, hotel suites, penthouse suite, deluxe room, standard room, grand elysee rooms, 5-star accommodation" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Rooms & Suites | Grand Élysée Hotel" />
+  <meta property="og:description" content="Discover our exquisite rooms and suites crafted for the ultimate luxury experience." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://grandelysee.com/rooms.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar solid" id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="Grand Élysée Hotel Home">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html" role="menuitem">Home</a></li>
+        <li><a href="about.html" role="menuitem">About</a></li>
+        <li><a href="rooms.html" class="active" role="menuitem">Rooms</a></li>
+        <li><a href="services.html" role="menuitem">Services</a></li>
+        <li><a href="gallery.html" role="menuitem">Gallery</a></li>
+        <li><a href="contact.html" role="menuitem">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta" role="menuitem">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <button id="mobileClose" style="position:absolute;top:24px;right:24px;background:none;color:rgba(255,255,255,0.6);font-size:1.4rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-cta"><a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Now</a></div>
+  </nav>
+
+  <main>
+    <!-- ==================== PAGE HERO ==================== -->
+    <section class="page-hero" style="margin-top:var(--navbar-h);" aria-label="Rooms Page Hero">
+      <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1800&q=85');"></div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content">
+        <div class="hero-badge" style="animation:none;">✦ Accommodations ✦</div>
+        <h1>Rooms & Suites</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span>/</span>
+          <span>Rooms & Suites</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ==================== ROOMS SECTION ==================== -->
+    <section class="section" aria-label="All Rooms">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">Our Accommodations</div>
+          <h2 class="section-title reveal">Choose Your Perfect Stay</h2>
+          <div class="divider reveal"></div>
+          <p class="section-desc reveal">Every room is a haven of comfort and elegance, crafted with the finest materials and amenities to ensure your complete satisfaction.</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="rooms-filter reveal" role="group" aria-label="Filter rooms by category">
+          <button class="filter-btn active" data-filter="all">All Rooms</button>
+          <button class="filter-btn" data-filter="standard">Standard</button>
+          <button class="filter-btn" data-filter="deluxe">Deluxe</button>
+          <button class="filter-btn" data-filter="suite">Suites</button>
+          <button class="filter-btn" data-filter="luxury">Luxury</button>
+        </div>
+
+        <!-- Rooms Grid -->
+        <div class="rooms-all-grid">
+
+          <!-- Standard Room -->
+          <article class="room-card reveal reveal-delay-1" data-category="standard">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80" alt="Classic Standard Room" loading="lazy" />
+              <span class="room-type-badge badge-standard">Standard</span>
+              <div class="room-card-overlay"></div>
+              <a href="room-details.html?room=standard" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Classic Standard Room</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 32 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2 Guests</span>
+                <span class="room-feature"><i class="fas fa-bed"></i> Queen Bed</span>
+                <span class="room-feature"><i class="fas fa-wifi"></i> Free WiFi</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">A thoughtfully appointed room with city views, premium linens, and all essential amenities for a comfortable stay.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$180</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="room-details.html?room=standard" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Deluxe King Room -->
+          <article class="room-card reveal reveal-delay-2" data-category="deluxe">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Deluxe King Room" loading="lazy" />
+              <span class="room-type-badge badge-deluxe">Deluxe</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=deluxe" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Deluxe King Room</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 45 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2 Guests</span>
+                <span class="room-feature"><i class="fas fa-bed"></i> King Bed</span>
+                <span class="room-feature"><i class="fas fa-eye"></i> City View</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Spacious and elegantly furnished with floor-to-ceiling windows, marble bathroom, and premium in-room amenities.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$280</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=deluxe" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Deluxe Twin Room -->
+          <article class="room-card reveal reveal-delay-3" data-category="deluxe">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=800&q=80" alt="Deluxe Twin Room" loading="lazy" />
+              <span class="room-type-badge badge-deluxe">Deluxe</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=deluxe-twin" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Deluxe Twin Room</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 42 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2 Guests</span>
+                <span class="room-feature"><i class="fas fa-bed"></i> Twin Beds</span>
+                <span class="room-feature"><i class="fas fa-wifi"></i> Free WiFi</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Ideal for colleagues or friends travelling together, featuring two luxurious single beds and garden views.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$260</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=deluxe-twin" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Junior Suite -->
+          <article class="room-card reveal reveal-delay-1" data-category="suite">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&q=80" alt="Junior Suite" loading="lazy" />
+              <span class="room-type-badge" style="background:#7B5EA7;">Suite</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=junior-suite" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Junior Suite</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 65 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2–3 Guests</span>
+                <span class="room-feature"><i class="fas fa-couch"></i> Living Area</span>
+                <span class="room-feature"><i class="fas fa-city"></i> Skyline View</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">A refined suite with separate sitting area, private balcony, whirlpool bath, and personalised butler service.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$420</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=junior-suite" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Family Room -->
+          <article class="room-card reveal reveal-delay-2" data-category="standard">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80" alt="Family Room" loading="lazy" />
+              <span class="room-type-badge badge-standard">Family</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=family" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Family Room</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 75 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> Up to 4</span>
+                <span class="room-feature"><i class="fas fa-bed"></i> 2 Bedrooms</span>
+                <span class="room-feature"><i class="fas fa-child"></i> Kid-Friendly</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Spacious two-bedroom suite designed for families, with a connecting living room, dedicated kids' amenities, and garden view.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$320</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=family" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Luxury Suite -->
+          <article class="room-card reveal reveal-delay-3" data-category="luxury">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Luxury Suite" loading="lazy" />
+              <span class="room-type-badge badge-luxury">Luxury</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=luxury-suite" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Luxury Suite</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 120 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2–4 Guests</span>
+                <span class="room-feature"><i class="fas fa-bath"></i> Private Pool</span>
+                <span class="room-feature"><i class="fas fa-concierge-bell"></i> Butler</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">The epitome of refined living — featuring a private plunge pool, dedicated butler, dining room, and panoramic city views.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$580</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=luxury-suite" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Presidential Suite -->
+          <article class="room-card reveal reveal-delay-1" data-category="luxury">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1615460549969-36fa19521a4f?w=800&q=80" alt="Presidential Suite" loading="lazy" />
+              <span class="room-type-badge badge-suite">Presidential</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=presidential" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Presidential Suite</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 180 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> Up to 4</span>
+                <span class="room-feature"><i class="fas fa-star"></i> Terrace</span>
+                <span class="room-feature"><i class="fas fa-concierge-bell"></i> 24/7 Butler</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Designed for dignitaries and celebrities, featuring a private dining room, home theatre, wine cellar, and wraparound terrace.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$750</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=presidential" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Royal Penthouse -->
+          <article class="room-card reveal reveal-delay-2" data-category="luxury">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&q=80" alt="Royal Penthouse Suite" loading="lazy" />
+              <span class="room-type-badge" style="background:#1A1A2E;">Penthouse</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=penthouse" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Royal Penthouse</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 220 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> Up to 4</span>
+                <span class="room-feature"><i class="fas fa-swimming-pool"></i> Private Pool</span>
+                <span class="room-feature"><i class="fas fa-helicopter"></i> Helipad Access</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Our crown jewel — a 220m² penthouse occupying the entire top floor with 360° city views and dedicated helicopter transfers.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$950</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=penthouse" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Honeymoon Suite -->
+          <article class="room-card reveal reveal-delay-3" data-category="suite">
+            <div class="room-card-img">
+              <img src="https://images.unsplash.com/photo-1609766418204-94aae0ecfdfc?w=800&q=80" alt="Honeymoon Suite" loading="lazy" />
+              <span class="room-type-badge" style="background:#C0627A;">Romance</span>
+              <div class="room-card-overlay"></div>
+              <a href="rooms.html?room=honeymoon" class="btn btn-primary room-card-overlay-btn" style="font-size:0.78rem;padding:10px 20px;">
+                View Details
+              </a>
+            </div>
+            <div class="room-card-body">
+              <h3 class="room-card-title">Honeymoon Suite</h3>
+              <div class="room-features">
+                <span class="room-feature"><i class="fas fa-expand-arrows-alt"></i> 90 m²</span>
+                <span class="room-feature"><i class="fas fa-user-friends"></i> 2 Guests</span>
+                <span class="room-feature"><i class="fas fa-heart"></i> Romance Package</span>
+                <span class="room-feature"><i class="fas fa-bath"></i> Jacuzzi</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--gray);margin-bottom:0;">Designed for romance — featuring a four-poster canopy bed, rose-petal turndown, private Jacuzzi, and Champagne welcome.</p>
+            </div>
+            <div class="room-card-footer-inner">
+              <div class="card-price" style="margin:0;">
+                <span class="price-amount" style="font-size:1.5rem;">$520</span>
+                <span class="price-period">/ night</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <a href="rooms.html?room=honeymoon" class="btn btn-outline-dark" style="font-size:0.75rem;padding:9px 16px;">Details</a>
+                <a href="booking.html" class="btn btn-primary" style="font-size:0.75rem;padding:9px 16px;">Book</a>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- end rooms grid -->
+      </div>
+    </section>
+
+    <!-- ==================== INCLUSIONS STRIP ==================== -->
+    <section class="features-strip" aria-label="What's Included">
+      <div class="container">
+        <div style="text-align:center;margin-bottom:40px;">
+          <div class="section-badge">Every Room Includes</div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-item reveal reveal-delay-1">
+            <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+            <div class="feature-text"><strong>High-Speed WiFi</strong><span>Complimentary throughout</span></div>
+          </div>
+          <div class="feature-item reveal reveal-delay-2">
+            <div class="feature-icon"><i class="fas fa-coffee"></i></div>
+            <div class="feature-text"><strong>Breakfast Included</strong><span>Daily gourmet breakfast</span></div>
+          </div>
+          <div class="feature-item reveal reveal-delay-3">
+            <div class="feature-icon"><i class="fas fa-concierge-bell"></i></div>
+            <div class="feature-text"><strong>Room Service</strong><span>24/7 in-room dining</span></div>
+          </div>
+          <div class="feature-item reveal reveal-delay-4">
+            <div class="feature-icon"><i class="fas fa-spa"></i></div>
+            <div class="feature-text"><strong>Spa Access</strong><span>Complimentary entry</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" aria-label="Book Now">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="reveal">Ready to Experience <em style="color:var(--gold);">True Luxury?</em></h2>
+          <p class="reveal">Book your preferred room today and receive exclusive early-bird benefits including complimentary breakfast and late checkout.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary"><i class="fas fa-bed"></i> Book Now</a>
+            <a href="contact.html" class="btn btn-outline"><i class="fas fa-phone"></i> Enquire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>12 Avenue des Élysées,<br/>Paris, France 75008</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+33 1 42 65 00 00</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>reservations@grandelysee.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Grand Élysée Hotel | Luxury 5-Star Hotel Experience</title>
+  <meta name="description" content="Experience world-class luxury at Grand Élysée Hotel. Premium suites, fine dining, spa & wellness, and unmatched hospitality in the heart of the city." />
+  <meta name="keywords" content="luxury hotel, 5-star hotel, grand elysee, hotel suites, fine dining, spa hotel, premium accommodation" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Grand Élysée Hotel | Luxury 5-Star Experience" />
+  <meta property="og:description" content="Book your luxury stay at Grand Élysée Hotel. Unparalleled elegance, world-class service, and unforgettable experiences await." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://grandelysee.com" />
+  <meta property="og:site_name" content="Grand Élysée Hotel" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Grand Élysée Hotel | Luxury 5-Star Experience" />
+  <meta name="twitter:description" content="Book your luxury stay at Grand Élysée Hotel." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* Home-specific styles */
+    body.loading { overflow: hidden; }
+
+    /* Preloader */
+    #preloader {
+      position: fixed; inset: 0; background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .preloader-inner { text-align: center; }
+    .preloader-logo {
+      font-family: var(--font-serif); font-size: 2rem;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .preloader-logo span { color: var(--gold); }
+    .preloader-bar {
+      width: 180px; height: 2px;
+      background: rgba(255,255,255,0.1); border-radius: 2px;
+      margin: 16px auto 0; overflow: hidden;
+    }
+    .preloader-bar::after {
+      content: ''; display: block; height: 100%;
+      background: var(--gold); border-radius: 2px;
+      animation: loadBar 1.4s ease infinite;
+    }
+    @keyframes loadBar {
+      0%   { width: 0; margin-left: 0; }
+      50%  { width: 100%; margin-left: 0; }
+      100% { width: 0; margin-left: 100%; }
+    }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: var(--shadow-gold);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+    /* Hero booking bar spacing */
+    .hero-bar-spacer { height: 90px; }
+
+    /* Featured Rooms */
+    .featured-rooms { padding: 120px 0 100px; }
+
+    /* Why Choose Us */
+    .why-section {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; min-height: 560px;
+    }
+    .why-img { position: relative; overflow: hidden; }
+    .why-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: var(--transition-slow);
+    }
+    .why-img:hover img { transform: scale(1.04); }
+    .why-content {
+      background: var(--dark); padding: 80px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .why-list { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+    .why-item { display: flex; align-items: flex-start; gap: 16px; }
+    .why-item-icon {
+      width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px;
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1rem;
+    }
+    .why-item-text strong {
+      display: block; color: var(--white);
+      font-size: 0.95rem; margin-bottom: 4px;
+    }
+    .why-item-text span { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+    @media (max-width: 900px) {
+      .why-section { grid-template-columns: 1fr; }
+      .why-img { height: 360px; }
+      .why-content { padding: 60px 32px; }
+    }
+    @media (max-width: 768px) {
+      .featured-rooms { padding: 80px 0; }
+      .hero-bar-spacer { height: 40px; }
+    }
+  </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+
+<body class="loading">
+
+  <!-- ==================== PRELOADER ==================== -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">Grand <span>Élysée</span></div>
+      <div style="font-size:0.65rem;letter-spacing:4px;color:rgba(255,255,255,0.4);text-transform:uppercase;">Hotel & Resorts</div>
+      <div class="preloader-bar"></div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="navbar-inner">
+
+      <!-- Logo -->
+      <a href="index.html" class="navbar-logo" aria-label="Grand Élysée Hotel Home">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html" class="active" role="menuitem">Home</a></li>
+        <li><a href="about.html" role="menuitem">About</a></li>
+        <li><a href="rooms.html" role="menuitem">Rooms</a></li>
+        <li><a href="services.html" role="menuitem">Services</a></li>
+        <li><a href="gallery.html" role="menuitem">Gallery</a></li>
+        <li><a href="contact.html" role="menuitem">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta" role="menuitem">Book Now</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+    <button id="mobileClose" style="position:absolute;top:24px;right:24px;background:none;color:rgba(255,255,255,0.6);font-size:1.4rem;cursor:pointer;" aria-label="Close menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-cta">
+      <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Now</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" aria-label="Hero Banner">
+      <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1800&q=85');"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">✦ Welcome to Grand Élysée ✦</div>
+        <h1 class="hero-title">
+          Where Luxury<br/>Meets <span>Timeless</span> Elegance
+        </h1>
+        <p class="hero-subtitle">
+          Indulge in an unparalleled experience of refinement, comfort, and world-class hospitality in the heart of the city.
+        </p>
+        <div class="hero-btns">
+          <a href="rooms.html" class="btn btn-primary">
+            <i class="fas fa-bed"></i> Explore Rooms
+          </a>
+          <a href="about.html" class="btn btn-outline">
+            <i class="fas fa-play-circle"></i> Our Story
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Booking Bar -->
+      <div class="booking-bar hero-bar">
+        <div class="form-group">
+          <label for="heroCheckin"><i class="fas fa-calendar-check" style="color:var(--gold);margin-right:6px;"></i>Check In</label>
+          <input type="date" id="heroCheckin" name="checkin" />
+        </div>
+        <div class="form-group">
+          <label for="heroCheckout"><i class="fas fa-calendar-times" style="color:var(--gold);margin-right:6px;"></i>Check Out</label>
+          <input type="date" id="heroCheckout" name="checkout" />
+        </div>
+        <div class="form-group">
+          <label for="heroGuests"><i class="fas fa-user-friends" style="color:var(--gold);margin-right:6px;"></i>Guests</label>
+          <select id="heroGuests" name="guests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5+ Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="heroRoomType"><i class="fas fa-door-open" style="color:var(--gold);margin-right:6px;"></i>Room Type</label>
+          <select id="heroRoomType" name="room_type">
+            <option value="">Any Room</option>
+            <option value="standard">Standard Room</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="suite">Junior Suite</option>
+            <option value="luxury">Luxury Suite</option>
+          </select>
+        </div>
+        <div>
+          <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px 20px;">
+            <i class="fas fa-search"></i> Check Availability
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- Spacer for booking bar -->
+    <div class="hero-bar-spacer"></div>
+
+    <!-- ==================== FEATURES STRIP ==================== -->
+    <section class="features-strip">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-item reveal reveal-delay-1">
+            <div class="feature-icon"><i class="fas fa-concierge-bell"></i></div>
+            <div class="feature-text">
+              <strong>24/7 Concierge</strong>
+              <span>Always at your service</span>
+            </div>
+          </div>
+          <div class="feature-item reveal reveal-delay-2">
+            <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+            <div class="feature-text">
+              <strong>Fine Dining</strong>
+              <span>Michelin-star cuisine</span>
+            </div>
+          </div>
+          <div class="feature-item reveal reveal-delay-3">
+            <div class="feature-icon"><i class="fas fa-spa"></i></div>
+            <div class="feature-text">
+              <strong>Luxury Spa</strong>
+              <span>Full wellness retreat</span>
+            </div>
+          </div>
+          <div class="feature-item reveal reveal-delay-4">
+            <div class="feature-icon"><i class="fas fa-car"></i></div>
+            <div class="feature-text">
+              <strong>Valet Parking</strong>
+              <span>Complimentary service</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURED ROOMS ==================== -->
+    <section class="featured-rooms section" id="rooms">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">Our Accommodations</div>
+          <h2 class="section-title reveal">Exquisite Rooms & Suites</h2>
+          <div class="divider reveal"></div>
+          <p class="section-desc reveal">Each room is a masterpiece of design — crafted with the finest materials to ensure your ultimate comfort and luxury.</p>
+        </div>
+
+        <div class="rooms-grid">
+          <!-- Room Card 1 -->
+          <article class="card reveal reveal-delay-1">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="Deluxe King Room" loading="lazy" />
+              <span class="card-badge">Most Popular</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Deluxe King Room</h3>
+              <p class="card-desc">Spacious 45m² room featuring city views, a king-size bed with premium linens, and a marble en-suite bathroom.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-expand-arrows-alt"></i> 45 m²</span>
+                <span><i class="fas fa-user-friends"></i> 2 Guests</span>
+                <span><i class="fas fa-eye"></i> City View</span>
+              </div>
+              <div class="card-price">
+                <span class="price-amount">$280</span>
+                <span class="price-period">/ night</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="rooms.html?room=deluxe" class="btn btn-outline-dark" style="font-size:0.78rem;padding:10px 20px;">View Details</a>
+              <a href="booking.html" class="btn btn-primary" style="font-size:0.78rem;padding:10px 20px;">Book Now</a>
+            </div>
+          </article>
+
+          <!-- Room Card 2 -->
+          <article class="card reveal reveal-delay-2">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&q=80" alt="Junior Suite" loading="lazy" />
+              <span class="card-badge" style="background:var(--gold-dark);">Premium</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Junior Suite</h3>
+              <p class="card-desc">A sophisticated 65m² suite with a separate living area, private balcony, and panoramic skyline views.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-expand-arrows-alt"></i> 65 m²</span>
+                <span><i class="fas fa-user-friends"></i> 2–3 Guests</span>
+                <span><i class="fas fa-city"></i> Skyline View</span>
+              </div>
+              <div class="card-price">
+                <span class="price-amount">$420</span>
+                <span class="price-period">/ night</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="rooms.html?room=junior-suite" class="btn btn-outline-dark" style="font-size:0.78rem;padding:10px 20px;">View Details</a>
+              <a href="booking.html" class="btn btn-primary" style="font-size:0.78rem;padding:10px 20px;">Book Now</a>
+            </div>
+          </article>
+
+          <!-- Room Card 3 -->
+          <article class="card reveal reveal-delay-3">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Royal Penthouse Suite" loading="lazy" />
+              <span class="card-badge" style="background:#2D3748;">Exclusive</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Royal Penthouse</h3>
+              <p class="card-desc">The pinnacle of luxury — 220m² penthouse with private terrace, butler service, and 360° city panorama.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-expand-arrows-alt"></i> 220 m²</span>
+                <span><i class="fas fa-user-friends"></i> Up to 4</span>
+                <span><i class="fas fa-star"></i> Terrace</span>
+              </div>
+              <div class="card-price">
+                <span class="price-amount">$950</span>
+                <span class="price-period">/ night</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="rooms.html?room=penthouse" class="btn btn-outline-dark" style="font-size:0.78rem;padding:10px 20px;">View Details</a>
+              <a href="booking.html" class="btn btn-primary" style="font-size:0.78rem;padding:10px 20px;">Book Now</a>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align:center;margin-top:48px;" class="reveal">
+          <a href="rooms.html" class="btn btn-outline-dark">
+            <i class="fas fa-th-large"></i> View All Rooms
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS STRIP ==================== -->
+    <section class="stats-strip" aria-label="Hotel Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <h3><span data-count="25" data-suffix="+">0+</span></h3>
+            <p>Years of Excellence</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="180" data-suffix="+">0+</span></h3>
+            <p>Luxury Rooms & Suites</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="50000" data-suffix="+">0+</span></h3>
+            <p>Happy Guests Served</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="12">0</span></h3>
+            <p>International Awards</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES HIGHLIGHTS ==================== -->
+    <section class="services-section section" id="services">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">What We Offer</div>
+          <h2 class="section-title reveal">Signature Services</h2>
+          <div class="divider reveal"></div>
+          <p class="section-desc reveal">From fine dining to world-class wellness, every detail is crafted to exceed your expectations.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card reveal reveal-delay-1">
+            <div class="service-icon"><i class="fas fa-utensils"></i></div>
+            <h3>Fine Dining</h3>
+            <p>Award-winning restaurants offering international and local cuisine prepared by world-renowned chefs.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-2">
+            <div class="service-icon"><i class="fas fa-spa"></i></div>
+            <h3>Spa & Wellness</h3>
+            <p>Rejuvenate your body and mind with our exclusive treatments, thermal pools, and holistic therapies.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-3">
+            <div class="service-icon"><i class="fas fa-swimming-pool"></i></div>
+            <h3>Infinity Pool</h3>
+            <p>Take a dip in our rooftop infinity pool overlooking the spectacular city skyline.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-4">
+            <div class="service-icon"><i class="fas fa-dumbbell"></i></div>
+            <h3>Fitness Center</h3>
+            <p>State-of-the-art equipment, personal trainers, and daily wellness classes for every guest.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-1">
+            <div class="service-icon"><i class="fas fa-glass-cheers"></i></div>
+            <h3>Rooftop Bar</h3>
+            <p>Sip handcrafted cocktails and fine wines while enjoying the most breathtaking views in the city.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-2">
+            <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+            <h3>Business Center</h3>
+            <p>Fully equipped conference rooms, high-speed internet, and professional event planning services.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-3">
+            <div class="service-icon"><i class="fas fa-concierge-bell"></i></div>
+            <h3>24/7 Butler</h3>
+            <p>Dedicated personal butler service ensuring every need is met with grace and discretion.</p>
+          </div>
+          <div class="service-card reveal reveal-delay-4">
+            <div class="service-icon"><i class="fas fa-car"></i></div>
+            <h3>Valet & Transfers</h3>
+            <p>Complimentary valet parking and luxury airport transfers with our fleet of premium vehicles.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:48px;" class="reveal">
+          <a href="services.html" class="btn btn-primary">
+            <i class="fas fa-concierge-bell"></i> All Services
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE US ==================== -->
+    <section class="why-section" aria-label="Why Choose Us">
+      <div class="why-img">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=80" alt="Hotel lobby interior" loading="lazy" />
+      </div>
+      <div class="why-content">
+        <span class="section-badge" style="text-align:left;display:inline-block;">Why Choose Us</span>
+        <h2 style="color:var(--white);margin-top:8px;">The Grand Élysée<br/><em style="color:var(--gold);">Difference</em></h2>
+        <div class="divider" style="margin:16px 0 0;"></div>
+        <div class="why-list">
+          <div class="why-item reveal-left">
+            <div class="why-item-icon"><i class="fas fa-crown"></i></div>
+            <div class="why-item-text">
+              <strong>Award-Winning Luxury</strong>
+              <span>Recognized globally as one of the top 5-star hotels for 10 consecutive years.</span>
+            </div>
+          </div>
+          <div class="why-item reveal-left reveal-delay-1">
+            <div class="why-item-icon"><i class="fas fa-heart"></i></div>
+            <div class="why-item-text">
+              <strong>Personalised Experience</strong>
+              <span>Every stay is curated uniquely. We remember your preferences before you do.</span>
+            </div>
+          </div>
+          <div class="why-item reveal-left reveal-delay-2">
+            <div class="why-item-icon"><i class="fas fa-leaf"></i></div>
+            <div class="why-item-text">
+              <strong>Sustainable Luxury</strong>
+              <span>Eco-certified and committed to responsible tourism without compromising elegance.</span>
+            </div>
+          </div>
+          <div class="why-item reveal-left reveal-delay-3">
+            <div class="why-item-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="why-item-text">
+              <strong>Safety & Privacy</strong>
+              <span>Discreet, professional service ensuring your complete privacy and security.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section class="testimonials-section" aria-label="Guest Testimonials">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge" style="color:var(--gold);">Guest Reviews</div>
+          <h2 class="section-title light">Words From Our Guests</h2>
+          <div class="divider"></div>
+          <p class="section-desc light">Real experiences from our distinguished guests around the world.</p>
+        </div>
+
+        <div class="testimonials-slider-wrap">
+          <div class="testimonials-track" id="testimonialsTrack">
+            <!-- Slide 1 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "Grand Élysée redefines what luxury truly means. From the moment we arrived, the staff anticipated our every need. The Royal Suite was breathtaking — I've stayed at some of the finest hotels in the world, and this ranks among the very best."
+                </p>
+                <div class="testimonial-author">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="James Whitmore" class="author-img" />
+                  <div class="author-info">
+                    <strong>James Whitmore</strong>
+                    <span>CEO, Whitmore Capital — New York</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "Our honeymoon at Grand Élysée was nothing short of magical. The team prepared a surprise turndown with rose petals and champagne. The spa treatments were absolutely divine. We'll treasure this experience for the rest of our lives."
+                </p>
+                <div class="testimonial-author">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="Sophia Laurent" class="author-img" />
+                  <div class="author-info">
+                    <strong>Sophia & Marc Laurent</strong>
+                    <span>Newlyweds — Paris, France</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                  "As a frequent business traveller, I've made Grand Élysée my home away from home. The business facilities are world-class, the restaurant's breakfast is extraordinary, and the team always remembers how I like my morning coffee. Simply perfect."
+                </p>
+                <div class="testimonial-author">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="Raj Patel" class="author-img" />
+                  <div class="author-info">
+                    <strong>Raj Patel</strong>
+                    <span>Managing Director, TechVision — London</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Controls -->
+          <div class="slider-controls">
+            <button class="slider-btn" id="testimonialPrev" aria-label="Previous testimonial">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="slider-dots" id="testimonialDots"></div>
+            <button class="slider-btn" id="testimonialNext" aria-label="Next testimonial">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="cta-section" aria-label="Call to Action">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Limited Availability</div>
+          <h2 class="reveal">Begin Your Luxury Journey <br/><em style="color:var(--gold);">Today</em></h2>
+          <p class="reveal">Reserve your suite now and enjoy exclusive early-bird rates, complimentary breakfast, and personalised welcome amenities.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary">
+              <i class="fas fa-bed"></i> Reserve Your Suite
+            </a>
+            <a href="contact.html" class="btn btn-outline">
+              <i class="fas fa-phone"></i> Call Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime. Located in the heart of the city.</p>
+          <div class="footer-social" aria-label="Social Media Links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Links -->
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Concierge</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>12 Avenue des Élysées,<br/>Paris, France 75008</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+33 1 42 65 00 00</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>reservations@grandelysee.com</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+</body>
+</html>

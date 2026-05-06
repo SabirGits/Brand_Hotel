@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>About Us | Grand Élysée Hotel — Our Story & Heritage</title>
+  <meta name="description" content="Discover the rich heritage and story of Grand Élysée Hotel. Learn about our history, values, award-winning team, and our commitment to world-class luxury hospitality." />
+  <meta name="keywords" content="about grand elysee hotel, hotel history, luxury hotel story, hotel team, 5-star hotel heritage" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="About Grand Élysée Hotel — Our Story & Heritage" />
+  <meta property="og:description" content="Learn about the rich history and commitment to excellence that defines Grand Élysée Hotel." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://grandelysee.com/about.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* Awards Section */
+    .awards-section { background: var(--cream); }
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+    .award-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: var(--transition);
+    }
+    .award-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+    .award-icon {
+      font-size: 2.4rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .award-card h4 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .award-card p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    .award-year {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* Mission Section */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .mission-card {
+      text-align: center;
+      padding: 48px 32px;
+      border-radius: var(--radius-xl);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .mission-card:hover { box-shadow: var(--shadow); transform: translateY(-6px); }
+    .mission-number {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: rgba(201,168,76,0.18);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .mission-card h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 12px; }
+    .mission-card p  { font-size: 0.875rem; color: var(--gray); }
+
+    @media (max-width: 1024px) {
+      .awards-grid { grid-template-columns: repeat(2,1fr); }
+      .mission-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .awards-grid { grid-template-columns: 1fr 1fr; }
+      .mission-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar solid" id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="Grand Élysée Hotel Home">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html" role="menuitem">Home</a></li>
+        <li><a href="about.html" class="active" role="menuitem">About</a></li>
+        <li><a href="rooms.html" role="menuitem">Rooms</a></li>
+        <li><a href="services.html" role="menuitem">Services</a></li>
+        <li><a href="gallery.html" role="menuitem">Gallery</a></li>
+        <li><a href="contact.html" role="menuitem">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta" role="menuitem">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <button id="mobileClose" style="position:absolute;top:24px;right:24px;background:none;color:rgba(255,255,255,0.6);font-size:1.4rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="services.html">Services</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-cta"><a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Now</a></div>
+  </nav>
+
+  <main>
+    <!-- ==================== PAGE HERO ==================== -->
+    <section class="page-hero" style="margin-top:var(--navbar-h);" aria-label="About Page Hero">
+      <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1800&q=85');"></div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content">
+        <div class="hero-badge" style="animation:none;">✦ Our Story ✦</div>
+        <h1>About Grand Élysée</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span>/</span>
+          <span>About Us</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT INTRO ==================== -->
+    <section class="section" aria-label="Our Story">
+      <div class="container">
+        <div class="about-intro">
+          <!-- Images -->
+          <div class="about-intro-images reveal-left">
+            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80"
+                 alt="Grand Élysée Hotel exterior" class="about-img-main" />
+            <img src="https://images.unsplash.com/photo-1600011689032-8b628b8a8747?w=600&q=80"
+                 alt="Hotel lobby detail" class="about-img-accent" />
+            <div class="about-badge-float">
+              <strong>1998</strong>
+              <span>Est.</span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="about-intro-content reveal-right">
+            <div class="section-badge">Our Heritage</div>
+            <h2>A Legacy of Luxury <br/><em style="color:var(--gold);">Since 1998</em></h2>
+            <div class="divider"></div>
+            <p>Founded in 1998 by the visionary hotelier Étienne Moreau, Grand Élysée Hotel was born from a singular dream: to create a sanctuary where luxury transcends the ordinary. Nestled in the heart of Paris, the hotel was built in a magnificent Belle Époque building that had stood as a beacon of architectural beauty for over a century.</p>
+            <p>Over more than two decades, we have welcomed royalty, world leaders, celebrated artists, and discerning travellers who seek nothing but the finest. Our philosophy is simple — that true luxury is not about opulence alone, but about the warmth of genuine care and the art of anticipating every desire.</p>
+            <p>Today, Grand Élysée stands as one of Europe's most celebrated luxury hotel brands, with a reputation built on integrity, excellence, and an unwavering commitment to creating unforgettable experiences.</p>
+
+            <div class="about-values">
+              <div class="value-item">
+                <div class="value-icon"><i class="fas fa-crown"></i></div>
+                <div class="value-text">
+                  <strong>Excellence</strong>
+                  <span>In every detail, always</span>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-icon"><i class="fas fa-heart"></i></div>
+                <div class="value-text">
+                  <strong>Passion</strong>
+                  <span>Hospitality from the heart</span>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                <div class="value-text">
+                  <strong>Sustainability</strong>
+                  <span>Responsible luxury travel</span>
+                </div>
+              </div>
+              <div class="value-item">
+                <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                <div class="value-text">
+                  <strong>Integrity</strong>
+                  <span>Trust in every interaction</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:36px;">
+              <a href="booking.html" class="btn btn-primary">
+                <i class="fas fa-bed"></i> Book Your Stay
+              </a>
+              <a href="rooms.html" class="btn btn-outline-dark" style="margin-left:12px;">
+                <i class="fas fa-th-large"></i> Explore Rooms
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="stats-strip" aria-label="Hotel Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <h3><span data-count="27" data-suffix="+">0+</span></h3>
+            <p>Years of Service</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="180" data-suffix="+">0+</span></h3>
+            <p>Luxury Rooms</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="350" data-suffix="+">0+</span></h3>
+            <p>Dedicated Staff</p>
+          </div>
+          <div class="stat-item">
+            <h3><span data-count="98" data-suffix="%">0%</span></h3>
+            <p>Guest Satisfaction</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MISSION & VALUES ==================== -->
+    <section class="section bg-off-white" aria-label="Mission and Values">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">Our Philosophy</div>
+          <h2 class="section-title reveal">What Drives Us Every Day</h2>
+          <div class="divider reveal"></div>
+        </div>
+        <div class="mission-grid">
+          <div class="mission-card reveal reveal-delay-1">
+            <div class="mission-number">01</div>
+            <h3>Our Vision</h3>
+            <p>To be the world's most admired luxury hotel brand — recognised not just for lavish surroundings, but for the depth of care and personalisation we bring to every single guest interaction.</p>
+          </div>
+          <div class="mission-card reveal reveal-delay-2">
+            <div class="mission-number">02</div>
+            <h3>Our Mission</h3>
+            <p>To deliver extraordinary hospitality experiences that nourish the spirit, delight the senses, and create lifelong memories, all while preserving the planet for future generations.</p>
+          </div>
+          <div class="mission-card reveal reveal-delay-3">
+            <div class="mission-number">03</div>
+            <h3>Our Promise</h3>
+            <p>Every guest who walks through our doors will be treated as a cherished individual. We promise attentiveness, discretion, and an uncompromising standard of luxury throughout every stay.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HISTORY TIMELINE ==================== -->
+    <section class="section" aria-label="Our History">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">Our Journey</div>
+          <h2 class="section-title reveal">Milestones That Shaped Us</h2>
+          <div class="divider reveal"></div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-content">
+              <h4>The Grand Opening</h4>
+              <p>Étienne Moreau opens Grand Élysée Hotel in a restored Belle Époque mansion, welcoming the first 80 guests with 40 luxurious rooms.</p>
+            </div>
+            <div class="timeline-year">1998</div>
+            <div></div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div></div>
+            <div class="timeline-year">2003</div>
+            <div class="timeline-content">
+              <h4>First 5-Star Rating</h4>
+              <p>Grand Élysée receives its first official 5-star rating and is inducted into the prestigious Leading Hotels of the World collection.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-content">
+              <h4>The Grand Expansion</h4>
+              <p>A major renovation doubles the hotel's capacity to 180 rooms, adds the Élysée Spa, and launches our award-winning rooftop restaurant.</p>
+            </div>
+            <div class="timeline-year">2009</div>
+            <div></div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div></div>
+            <div class="timeline-year">2015</div>
+            <div class="timeline-content">
+              <h4>Michelin Star Dining</h4>
+              <p>Our flagship restaurant "Le Jardin d'Élysée" is awarded its first Michelin star, cementing our culinary reputation on the world stage.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-content">
+              <h4>Green Hotel Certification</h4>
+              <p>Grand Élysée becomes one of the first luxury hotels in Europe to achieve Platinum Green Globe certification for sustainable operations.</p>
+            </div>
+            <div class="timeline-year">2020</div>
+            <div></div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div></div>
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+              <h4>Digital Luxury Experience</h4>
+              <p>Launched our state-of-the-art digital concierge platform and completed a full renovation of the Royal Penthouse and Presidential Suites.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TEAM ==================== -->
+    <section class="section bg-cream" aria-label="Our Team">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">The People Behind the Magic</div>
+          <h2 class="section-title reveal">Meet Our Leadership</h2>
+          <div class="divider reveal"></div>
+          <p class="section-desc reveal">Our team of world-class professionals bring decades of combined expertise and an unmatched passion for hospitality.</p>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card reveal reveal-delay-1">
+            <div class="team-img-wrap">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Jean-Pierre Moreau" loading="lazy" />
+              <div class="team-overlay">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:jean@grandelysee.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <h3 class="team-name">Jean-Pierre Moreau</h3>
+            <p class="team-role">Chief Executive Officer</p>
+          </div>
+
+          <div class="team-card reveal reveal-delay-2">
+            <div class="team-img-wrap">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Isabelle Fontaine" loading="lazy" />
+              <div class="team-overlay">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:isabelle@grandelysee.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <h3 class="team-name">Isabelle Fontaine</h3>
+            <p class="team-role">General Manager</p>
+          </div>
+
+          <div class="team-card reveal reveal-delay-3">
+            <div class="team-img-wrap">
+              <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80" alt="Chef Antoine Dubois" loading="lazy" />
+              <div class="team-overlay">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:chef@grandelysee.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <h3 class="team-name">Chef Antoine Dubois</h3>
+            <p class="team-role">Executive Chef</p>
+          </div>
+
+          <div class="team-card reveal reveal-delay-4">
+            <div class="team-img-wrap">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Sophie Renard" loading="lazy" />
+              <div class="team-overlay">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:sophie@grandelysee.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <h3 class="team-name">Sophie Renard</h3>
+            <p class="team-role">Head of Guest Experience</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== AWARDS ==================== -->
+    <section class="section awards-section" aria-label="Awards and Recognition">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge reveal">Recognition</div>
+          <h2 class="section-title reveal">Awards & Accolades</h2>
+          <div class="divider reveal"></div>
+          <p class="section-desc reveal">Our commitment to excellence has been celebrated by the world's most prestigious hospitality organisations.</p>
+        </div>
+
+        <div class="awards-grid">
+          <div class="award-card reveal reveal-delay-1">
+            <div class="award-icon"><i class="fas fa-trophy"></i></div>
+            <h4>World's Best Luxury Hotel</h4>
+            <p>World Travel Awards</p>
+            <span class="award-year">2024</span>
+          </div>
+          <div class="award-card reveal reveal-delay-2">
+            <div class="award-icon"><i class="fas fa-star"></i></div>
+            <h4>Five Star Diamond Award</h4>
+            <p>American Academy of Hospitality Sciences</p>
+            <span class="award-year">2023–2024</span>
+          </div>
+          <div class="award-card reveal reveal-delay-3">
+            <div class="award-icon"><i class="fas fa-medal"></i></div>
+            <h4>Best Hotel Spa Europe</h4>
+            <p>Condé Nast Traveller</p>
+            <span class="award-year">2023</span>
+          </div>
+          <div class="award-card reveal reveal-delay-4">
+            <div class="award-icon"><i class="fas fa-leaf"></i></div>
+            <h4>Platinum Green Certification</h4>
+            <p>Green Globe Sustainability</p>
+            <span class="award-year">2022–2024</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" aria-label="Book Now">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1606402179428-a57976d71fa4?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="reveal">Experience the <em style="color:var(--gold);">Grand Élysée</em> Life</h2>
+          <p class="reveal">Every stay is a chapter in your personal story of luxury. Let us write it together.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary"><i class="fas fa-bed"></i> Reserve Now</a>
+            <a href="contact.html" class="btn btn-outline"><i class="fas fa-phone"></i> Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>12 Avenue des Élysées,<br/>Paris, France 75008</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+33 1 42 65 00 00</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>reservations@grandelysee.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+</body>
+</html>

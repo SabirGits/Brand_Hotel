@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Grand Élysée Hotel — Get in Touch</title>
+  <meta name="description" content="Contact Grand Élysée Hotel for reservations, enquiries, events, and personalised assistance. We're available 24/7 to serve you." />
+  <meta name="keywords" content="contact grand elysee hotel, hotel reservations, hotel enquiry, hotel address, hotel phone" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Contact Us | Grand Élysée Hotel" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* ---- Contact Page Specific ---- */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* Contact Info Panel */
+    .contact-info-panel {
+      position: sticky;
+      top: 100px;
+    }
+    .contact-info-panel .section-badge { justify-content: flex-start; margin-bottom: 16px; }
+    .contact-info-panel h2 { margin-bottom: 16px; font-size: clamp(1.8rem, 3vw, 2.6rem); }
+    .contact-info-panel > p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .contact-card:first-of-type { padding-top: 0; }
+    .contact-card:last-of-type { border-bottom: none; }
+    .contact-card-icon {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+    .contact-card:hover .contact-card-icon {
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold);
+    }
+    .contact-card-text h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .contact-card-text p, .contact-card-text a {
+      font-size: 0.9rem;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    .contact-card-text a:hover { color: var(--gold); }
+
+    .contact-hours {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-top: 32px;
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+    .contact-hours h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.85rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:first-child { color: var(--dark); font-weight: 500; }
+    .hours-row span:last-child { color: var(--gold); font-weight: 600; }
+
+    /* Contact Form */
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 52px 48px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .contact-form-wrap h3 {
+      font-size: 1.6rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .contact-form-wrap > p {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-group label span { color: var(--gold); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--off-white);
+      transition: var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.08);
+    }
+    .form-group input.error,
+    .form-group select.error,
+    .form-group textarea.error {
+      border-color: #e74c3c;
+    }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-error {
+      font-size: 0.78rem;
+      color: #e74c3c;
+      margin-top: 5px;
+      display: none;
+    }
+    .form-error.show { display: block; }
+
+    .contact-success {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .contact-success.show { display: block; }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--white);
+      margin: 0 auto 24px;
+    }
+    .contact-success h3 { font-size: 1.5rem; color: var(--dark); margin-bottom: 12px; }
+    .contact-success p { font-size: 0.9rem; color: var(--gray); }
+
+    /* Map Section */
+    .map-section { padding: 0 0 100px; }
+    .map-container {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      height: 480px;
+      position: relative;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .map-overlay-badge {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .map-overlay-badge i { color: var(--gold); font-size: 1.2rem; }
+    .map-overlay-badge div strong { display: block; font-size: 0.9rem; color: var(--dark); }
+    .map-overlay-badge div span { font-size: 0.78rem; color: var(--gray); }
+
+    /* Department Cards */
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .dept-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .dept-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .dept-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin: 0 auto 16px;
+      transition: var(--transition);
+    }
+    .dept-card:hover .dept-icon { background: var(--gold); color: var(--white); border-color: var(--gold); }
+    .dept-card h4 { font-size: 1rem; color: var(--dark); margin-bottom: 6px; }
+    .dept-card p { font-size: 0.8rem; color: var(--gray); margin-bottom: 12px; }
+    .dept-card a { font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+    .dept-card a:hover { color: var(--gold-dark); }
+
+    /* Back to top */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: var(--shadow-gold);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .contact-info-panel { position: static; }
+      .dept-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .contact-form-wrap { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .dept-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <span class="logo-main" style="font-family:var(--font-serif);font-size:1.1rem;">Grand <span style="color:var(--gold);">Élysée</span></span>
+      <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+      <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="booking.html" class="btn btn-primary" style="display:block;text-align:center;margin-top:16px;"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- ==================== PAGE HERO ==================== -->
+    <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80');">
+      <div class="page-hero-overlay"></div>
+      <div class="container">
+        <div class="page-hero-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">We're Here</div>
+          <h1 class="reveal">Get in <em style="color:var(--gold);">Touch</em></h1>
+          <p class="reveal">Our dedicated team is available around the clock to assist with reservations, enquiries, and personalised requests.</p>
+          <div class="page-hero-breadcrumb reveal">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Contact</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DEPARTMENT CARDS ==================== -->
+    <section class="section" style="padding-bottom:0;" aria-label="Departments">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:48px;">
+          <div class="section-badge">Reach Us Directly</div>
+          <h2>How Can We <em style="color:var(--gold);">Help You?</em></h2>
+          <p class="section-subtitle">Whether it's a reservation, a special request, or an event enquiry — we have a dedicated team for every need.</p>
+        </div>
+        <div class="dept-grid">
+          <div class="dept-card reveal">
+            <div class="dept-icon"><i class="fas fa-bed"></i></div>
+            <h4>Reservations</h4>
+            <p>Room bookings, availability & special packages</p>
+            <a href="tel:+33142650000">+33 1 42 65 00 00</a>
+          </div>
+          <div class="dept-card reveal">
+            <div class="dept-icon"><i class="fas fa-glass-cheers"></i></div>
+            <h4>Events & Weddings</h4>
+            <p>Banquets, weddings & corporate functions</p>
+            <a href="mailto:events@grandelysee.com">events@grandelysee.com</a>
+          </div>
+          <div class="dept-card reveal">
+            <div class="dept-icon"><i class="fas fa-spa"></i></div>
+            <h4>Spa & Dining</h4>
+            <p>Spa appointments & restaurant reservations</p>
+            <a href="tel:+33142650011">+33 1 42 65 00 11</a>
+          </div>
+          <div class="dept-card reveal">
+            <div class="dept-icon"><i class="fas fa-concierge-bell"></i></div>
+            <h4>Concierge</h4>
+            <p>Tours, transfers & bespoke requests</p>
+            <a href="mailto:concierge@grandelysee.com">concierge@grandelysee.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT FORM & INFO ==================== -->
+    <section class="section" aria-label="Contact Form">
+      <div class="container">
+        <div class="contact-layout">
+
+          <!-- Left: Info -->
+          <div class="contact-info-panel reveal">
+            <div class="section-badge">Contact Info</div>
+            <h2>We'd Love to <em style="color:var(--gold);">Hear From You</em></h2>
+            <p>Fill in the form or reach us directly. Our team responds within 2 hours during business hours, and our concierge is available 24/7 for urgent matters.</p>
+
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="contact-card-text">
+                <h4>Our Location</h4>
+                <p>12 Avenue des Élysées<br/>Paris, France 75008</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
+              <div class="contact-card-text">
+                <h4>Phone</h4>
+                <a href="tel:+33142650000">+33 1 42 65 00 00</a><br/>
+                <a href="tel:+33142650011" style="font-size:0.82rem;color:var(--gray);">+33 1 42 65 00 11 (Spa & Dining)</a>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+              <div class="contact-card-text">
+                <h4>Email</h4>
+                <a href="mailto:reservations@grandelysee.com">reservations@grandelysee.com</a><br/>
+                <a href="mailto:info@grandelysee.com" style="font-size:0.82rem;color:var(--gray);">info@grandelysee.com</a>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fas fa-car"></i></div>
+              <div class="contact-card-text">
+                <h4>Getting Here</h4>
+                <p style="font-size:0.85rem;">Metro: Champs-Élysées — Clemenceau (Line 1 & 13). Valet parking available at the main entrance.</p>
+              </div>
+            </div>
+
+            <div class="contact-hours">
+              <h4><i class="fas fa-clock"></i> Operating Hours</h4>
+              <div class="hours-row"><span>Front Desk</span><span>24 / 7</span></div>
+              <div class="hours-row"><span>Concierge</span><span>24 / 7</span></div>
+              <div class="hours-row"><span>Le Jardin (Breakfast)</span><span>7:00 – 11:00 AM</span></div>
+              <div class="hours-row"><span>Le Jardin (Dinner)</span><span>6:30 – 10:30 PM</span></div>
+              <div class="hours-row"><span>Spa & Wellness</span><span>8:00 AM – 10:00 PM</span></div>
+              <div class="hours-row"><span>Rooftop Pool</span><span>7:00 AM – 11:00 PM</span></div>
+            </div>
+          </div>
+
+          <!-- Right: Form -->
+          <div class="contact-form-wrap reveal">
+            <h3>Send Us a Message</h3>
+            <p>We'll get back to you within 2 business hours. For urgent assistance, please call us directly.</p>
+
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactName">Full Name <span>*</span></label>
+                  <input type="text" id="contactName" name="contactName" placeholder="Your full name" autocomplete="name" />
+                  <span class="form-error" id="contactNameError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contactEmail">Email Address <span>*</span></label>
+                  <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" autocomplete="email" />
+                  <span class="form-error" id="contactEmailError"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactPhone">Phone Number</label>
+                  <input type="tel" id="contactPhone" name="contactPhone" placeholder="+33 1 XX XX XX XX" autocomplete="tel" />
+                </div>
+                <div class="form-group">
+                  <label for="contactDept">Department</label>
+                  <select id="contactDept" name="contactDept">
+                    <option value="">Select department</option>
+                    <option value="reservations">Reservations</option>
+                    <option value="events">Events & Weddings</option>
+                    <option value="spa">Spa & Dining</option>
+                    <option value="concierge">Concierge</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactSubject">Subject <span>*</span></label>
+                <input type="text" id="contactSubject" name="contactSubject" placeholder="How can we help?" />
+                <span class="form-error" id="contactSubjectError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Your Message <span>*</span></label>
+                <textarea id="contactMessage" name="contactMessage" placeholder="Please share your message, request, or feedback in detail..."></textarea>
+                <span class="form-error" id="contactMessageError"></span>
+              </div>
+
+              <div class="form-group" style="display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;">
+                <input type="checkbox" id="contactPrivacy" style="width:auto;margin-top:2px;accent-color:var(--gold);" />
+                <label for="contactPrivacy" style="font-size:0.8rem;color:var(--gray);font-weight:400;letter-spacing:0;text-transform:none;">
+                  I agree to the <a href="#" style="color:var(--gold);">Privacy Policy</a> and consent to Grand Élysée Hotel contacting me regarding my enquiry.
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+
+            <div id="contactSuccess" class="contact-success">
+              <div class="success-icon"><i class="fas fa-check"></i></div>
+              <h3>Message Received!</h3>
+              <p>Thank you for reaching out. A member of our team will respond to your enquiry within 2 hours.<br/><br/>For immediate assistance, call us at <strong>+33 1 42 65 00 00</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MAP ==================== -->
+    <section class="map-section" aria-label="Hotel Location Map">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:48px;">
+          <div class="section-badge">Find Us</div>
+          <h2>Our <em style="color:var(--gold);">Location</em></h2>
+          <p class="section-subtitle">Situated on the world-famous Avenue des Champs-Élysées in the 8th arrondissement of Paris.</p>
+        </div>
+        <div class="map-container reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.142047244061!2d2.3040647!3d48.8698679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fc4b64a7b91%3A0x2a51e41da5c68c29!2sChamps-%C3%89lys%C3%A9es!5e0!3m2!1sen!2sfr!4v1680000000000!5m2!1sen!2sfr"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Grand Élysée Hotel Location"
+          ></iframe>
+          <div class="map-overlay-badge">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Grand Élysée Hotel</strong>
+              <span>12 Avenue des Élysées, Paris 75008</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" aria-label="Call to Action">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Ready to Arrive?</div>
+          <h2 class="reveal">Book Your Suite <em style="color:var(--gold);">Today</em></h2>
+          <p class="reveal">Reserve directly with us for the best available rates and complimentary perks.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary"><i class="fas fa-bed"></i> Reserve Your Suite</a>
+            <a href="rooms.html" class="btn btn-outline"><i class="fas fa-door-open"></i> View All Rooms</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Concierge</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>12 Avenue des Élysées,<br/>Paris, France 75008</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+33 1 42 65 00 00</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>reservations@grandelysee.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>

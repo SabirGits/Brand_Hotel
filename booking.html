@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Now | Grand Élysée Hotel — Reserve Your Suite</title>
+  <meta name="description" content="Reserve your luxury suite at Grand Élysée Hotel. Best rate guarantee, complimentary breakfast, and exclusive perks when you book directly." />
+  <meta name="keywords" content="hotel booking, reserve suite, grand elysee booking, luxury hotel reservation, best rate guarantee" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Book Now | Grand Élysée Hotel" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* ---- Booking Page Specific ---- */
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Benefits Strip */
+    .booking-benefits {
+      background: var(--dark);
+      padding: 20px 0;
+    }
+    .benefits-strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+    .benefit-item i { color: var(--gold); font-size: 0.9rem; }
+
+    /* Progress Steps */
+    .booking-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 52px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gray);
+      transition: var(--transition);
+    }
+    .step.active .step-num {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .step.done .step-num {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: var(--white);
+    }
+    .step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .step.active .step-label { color: var(--gold); }
+    .step.done .step-label { color: var(--dark); }
+    .step-line {
+      width: 64px;
+      height: 1.5px;
+      background: rgba(0,0,0,0.1);
+      margin: 0 8px;
+    }
+    .step-line.done { background: var(--gold); }
+
+    /* Room Selector */
+    .room-selector-section h3 {
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .room-selector-section > p {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .room-select-card {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      border: 2px solid rgba(0,0,0,0.07);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 16px;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .room-select-card:hover { border-color: var(--gold); box-shadow: var(--shadow-gold); transform: translateY(-2px); }
+    .room-select-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.15), var(--shadow-gold);
+    }
+    .room-select-img {
+      height: 140px;
+      overflow: hidden;
+      position: relative;
+    }
+    .room-select-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: var(--transition-slow);
+    }
+    .room-select-card:hover .room-select-img img { transform: scale(1.05); }
+    .room-select-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .room-select-info {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .room-select-info h4 {
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .room-select-info p {
+      font-size: 0.78rem;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .room-amenities {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .room-amenities span {
+      font-size: 0.72rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .room-amenities i { color: var(--gold); font-size: 0.65rem; }
+    .room-select-price {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      border-left: 1px solid rgba(0,0,0,0.06);
+      min-width: 130px;
+    }
+    .room-select-price .price-from {
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .room-select-price .price-num {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+    .room-select-price .price-night {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+    .room-select-price .select-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.15);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: var(--transition);
+    }
+    .room-select-card.selected .select-check {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    /* Booking Form */
+    .booking-form-section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+      margin-top: 36px;
+    }
+    .booking-form-section h3 {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+    .form-group label span { color: var(--gold); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: var(--dark);
+      background: var(--off-white);
+      transition: var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+    .form-group input.error,
+    .form-group select.error {
+      border-color: #e74c3c;
+    }
+    .form-error {
+      font-size: 0.76rem;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;
+    }
+    .form-error.show { display: block; }
+    /* Hidden room input */
+    #bookingRoom { display: none; }
+
+    /* Booking Sidebar */
+    .booking-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+    .summary-card {
+      background: var(--dark);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .summary-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .summary-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .summary-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.8), transparent);
+    }
+    .summary-body {
+      padding: 28px;
+    }
+    .summary-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-row span:first-child {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .summary-row span:last-child {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 600;
+    }
+    .summary-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0 0;
+      margin-top: 8px;
+    }
+    .summary-total-row span:first-child {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .summary-total-amount {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .summary-note {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    /* Why Book Direct */
+    .why-direct {
+      background: var(--cream);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      margin-top: 20px;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .why-direct h4 {
+      font-size: 0.85rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .why-direct h4 i { color: var(--gold); }
+    .direct-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .direct-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--dark);
+    }
+    .direct-list li i { color: var(--gold); font-size: 0.7rem; }
+
+    /* Trust badges */
+    .trust-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.07);
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    .trust-badge i { color: var(--gold); }
+
+    /* Success */
+    .booking-success {
+      display: none;
+      text-align: center;
+      padding: 64px 32px;
+    }
+    .booking-success.show { display: block; }
+    .booking-success .success-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--white);
+      margin: 0 auto 28px;
+    }
+    .booking-success h2 { color: var(--dark); margin-bottom: 16px; }
+    .booking-success p { color: var(--gray); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
+    .booking-ref {
+      display: inline-block;
+      margin: 24px 0;
+      background: var(--cream);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius-lg);
+      padding: 16px 32px;
+    }
+    .booking-ref span {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .booking-ref strong {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--gold);
+      letter-spacing: 4px;
+    }
+
+    /* Back to top */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: var(--shadow-gold);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+    @media (max-width: 1200px) {
+      .booking-layout { grid-template-columns: 1fr 340px; }
+    }
+    @media (max-width: 1024px) {
+      .booking-layout { grid-template-columns: 1fr; }
+      .booking-sidebar { position: static; }
+    }
+    @media (max-width: 768px) {
+      .room-select-card { grid-template-columns: 140px 1fr; }
+      .room-select-price { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .booking-form-section { padding: 28px 20px; }
+    }
+    @media (max-width: 480px) {
+      .room-select-card { grid-template-columns: 1fr; }
+      .room-select-img { height: 180px; }
+      .booking-steps { gap: 4px; }
+      .step-line { width: 32px; }
+      .step-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta active">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <span class="logo-main" style="font-family:var(--font-serif);font-size:1.1rem;">Grand <span style="color:var(--gold);">Élysée</span></span>
+      <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+      <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="booking.html" class="btn btn-primary" style="display:block;text-align:center;margin-top:16px;"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- ==================== BENEFITS STRIP ==================== -->
+    <div class="booking-benefits" style="margin-top:80px;">
+      <div class="container">
+        <div class="benefits-strip">
+          <div class="benefit-item"><i class="fas fa-tag"></i> Best Rate Guarantee</div>
+          <div class="benefit-item"><i class="fas fa-coffee"></i> Complimentary Breakfast</div>
+          <div class="benefit-item"><i class="fas fa-gift"></i> Welcome Amenities</div>
+          <div class="benefit-item"><i class="fas fa-times-circle"></i> Free Cancellation</div>
+          <div class="benefit-item"><i class="fas fa-lock"></i> Secure Booking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE HEADER ==================== -->
+    <section style="padding: 64px 0 0; background: var(--cream);">
+      <div class="container">
+        <div class="text-center reveal">
+          <div class="section-badge">Direct Booking</div>
+          <h1 style="font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 12px;">Reserve Your <em style="color:var(--gold);">Suite</em></h1>
+          <p style="max-width:560px; margin:0 auto 40px; font-size:0.9rem;">Book directly for the best available rates, exclusive perks, and personalised service from the moment you reserve.</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="booking-steps">
+          <div class="step active">
+            <div class="step-num">1</div>
+            <div class="step-label">Select Room</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-label">Your Details</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-label">Confirm</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BOOKING LAYOUT ==================== -->
+    <section style="background: var(--cream); padding: 48px 0 80px;" aria-label="Booking Form">
+      <div class="container">
+        <div class="booking-layout">
+
+          <!-- LEFT: Room Selector + Form -->
+          <div>
+            <!-- Room Selection -->
+            <div class="room-selector-section reveal">
+              <h3>Step 1 — Choose Your Room</h3>
+              <p>Select from our curated collection of luxury accommodations. All rooms include complimentary Wi-Fi, daily housekeeping, and access to hotel facilities.</p>
+              <input type="hidden" id="bookingRoom" name="bookingRoom" />
+              <span class="form-error" id="bookingRoomError"></span>
+
+              <!-- Standard -->
+              <div class="room-select-card" data-room="Standard Room" data-price="180" data-category="standard">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=400&q=80" alt="Standard Room" loading="lazy" />
+                  <span class="room-select-badge">Best Value</span>
+                </div>
+                <div class="room-select-info">
+                  <h4>Standard Room</h4>
+                  <p>Elegantly furnished with city or garden views. Features king bed, marble bathroom, and all modern comforts.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-bed"></i> King Bed</span>
+                    <span><i class="fas fa-wifi"></i> Free Wi-Fi</span>
+                    <span><i class="fas fa-snowflake"></i> A/C</span>
+                    <span><i class="fas fa-tv"></i> Smart TV</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$180</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+              <!-- Deluxe -->
+              <div class="room-select-card" data-room="Deluxe Room" data-price="280" data-category="deluxe">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400&q=80" alt="Deluxe Room" loading="lazy" />
+                </div>
+                <div class="room-select-info">
+                  <h4>Deluxe Room</h4>
+                  <p>Generous space with panoramic views, premium bedding, a separate seating area, and a luxury soaking tub.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-bed"></i> King Bed</span>
+                    <span><i class="fas fa-bath"></i> Soaking Tub</span>
+                    <span><i class="fas fa-couch"></i> Lounge</span>
+                    <span><i class="fas fa-wine-glass"></i> Minibar</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$280</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+              <!-- Junior Suite -->
+              <div class="room-select-card" data-room="Junior Suite" data-price="420" data-category="suite">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80" alt="Junior Suite" loading="lazy" />
+                  <span class="room-select-badge">Popular</span>
+                </div>
+                <div class="room-select-info">
+                  <h4>Junior Suite</h4>
+                  <p>A refined suite with separate living room, city skyline views, and premium amenities including a pillow menu.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-couch"></i> Living Room</span>
+                    <span><i class="fas fa-city"></i> City View</span>
+                    <span><i class="fas fa-concierge-bell"></i> Butler</span>
+                    <span><i class="fas fa-cocktail"></i> Welcome Gift</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$420</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+              <!-- Luxury Suite -->
+              <div class="room-select-card" data-room="Luxury Suite" data-price="580" data-category="suite">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80" alt="Luxury Suite" loading="lazy" />
+                </div>
+                <div class="room-select-info">
+                  <h4>Luxury Suite</h4>
+                  <p>Opulent interiors across 75 sqm with private terrace, Jacuzzi, and full butler service throughout your stay.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-hot-tub"></i> Jacuzzi</span>
+                    <span><i class="fas fa-umbrella-beach"></i> Terrace</span>
+                    <span><i class="fas fa-concierge-bell"></i> Butler</span>
+                    <span><i class="fas fa-star"></i> VIP Access</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$580</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+              <!-- Royal Penthouse -->
+              <div class="room-select-card" data-room="Royal Penthouse" data-price="950" data-category="penthouse">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80" alt="Royal Penthouse" loading="lazy" />
+                  <span class="room-select-badge">Pinnacle</span>
+                </div>
+                <div class="room-select-info">
+                  <h4>Royal Penthouse</h4>
+                  <p>The crown jewel — two-level 200 sqm penthouse with private rooftop, Jacuzzi, dining room, and dedicated staff.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-crown"></i> Two Levels</span>
+                    <span><i class="fas fa-hot-tub"></i> Private Jacuzzi</span>
+                    <span><i class="fas fa-users"></i> Staff</span>
+                    <span><i class="fas fa-car"></i> Limo Transfer</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$950</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+              <!-- Family Room -->
+              <div class="room-select-card" data-room="Family Room" data-price="320" data-category="family">
+                <div class="room-select-img">
+                  <img src="https://images.unsplash.com/photo-1587213811864-4e2a50e6b2c1?w=400&q=80" alt="Family Room" loading="lazy" />
+                </div>
+                <div class="room-select-info">
+                  <h4>Family Room</h4>
+                  <p>Thoughtfully designed for families — two bedrooms, children's amenities, and connecting access available.</p>
+                  <div class="room-amenities">
+                    <span><i class="fas fa-bed"></i> 2 Bedrooms</span>
+                    <span><i class="fas fa-child"></i> Kids' Kit</span>
+                    <span><i class="fas fa-link"></i> Connecting</span>
+                    <span><i class="fas fa-bath"></i> Bathtub</span>
+                  </div>
+                </div>
+                <div class="room-select-price">
+                  <span class="price-from">From</span>
+                  <span class="price-num">$320</span>
+                  <span class="price-night">per night</span>
+                  <div class="select-check"><i class="fas fa-check"></i></div>
+                </div>
+              </div>
+
+            </div><!-- end room selector -->
+
+            <!-- Guest Details Form -->
+            <div class="booking-form-section reveal">
+              <h3><i class="fas fa-user-circle" style="color:var(--gold);margin-right:10px;"></i>Step 2 — Your Details</h3>
+
+              <form id="bookingForm" novalidate>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bookingName">Full Name <span>*</span></label>
+                    <input type="text" id="bookingName" name="bookingName" placeholder="Your full name" autocomplete="name" />
+                    <span class="form-error" id="bookingNameError"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="bookingEmail">Email Address <span>*</span></label>
+                    <input type="email" id="bookingEmail" name="bookingEmail" placeholder="you@example.com" autocomplete="email" />
+                    <span class="form-error" id="bookingEmailError"></span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bookingPhone">Phone Number <span>*</span></label>
+                    <input type="tel" id="bookingPhone" name="bookingPhone" placeholder="+33 1 XX XX XX XX" autocomplete="tel" />
+                    <span class="form-error" id="bookingPhoneError"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="bookingGuests">Number of Guests <span>*</span></label>
+                    <select id="bookingGuests" name="bookingGuests">
+                      <option value="">Select guests</option>
+                      <option value="1">1 Guest</option>
+                      <option value="2">2 Guests</option>
+                      <option value="3">3 Guests</option>
+                      <option value="4">4 Guests</option>
+                      <option value="5+">5+ Guests</option>
+                    </select>
+                    <span class="form-error" id="bookingGuestsError"></span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bookingCheckin">Check-in Date <span>*</span></label>
+                    <input type="date" id="bookingCheckin" name="bookingCheckin" />
+                    <span class="form-error" id="bookingCheckinError"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="bookingCheckout">Check-out Date <span>*</span></label>
+                    <input type="date" id="bookingCheckout" name="bookingCheckout" />
+                    <span class="form-error" id="bookingCheckoutError"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingRequests">Special Requests <span style="color:var(--gray);font-weight:400;font-size:0.7rem;">(Optional)</span></label>
+                  <textarea id="bookingRequests" name="bookingRequests" rows="3" placeholder="Late check-out, anniversary surprise, dietary requirements, accessible room, etc."></textarea>
+                </div>
+
+                <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;">
+                  <input type="checkbox" id="bookingTerms" style="width:auto;margin-top:3px;accent-color:var(--gold);" />
+                  <label for="bookingTerms" style="font-size:0.8rem;color:var(--gray);font-family:var(--font-sans);font-weight:400;letter-spacing:0;text-transform:none;cursor:pointer;">
+                    I agree to the <a href="#" style="color:var(--gold);">Terms & Conditions</a> and <a href="#" style="color:var(--gold);">Cancellation Policy</a>. A confirmation email will be sent to the provided email address.
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:18px;font-size:1rem;">
+                  <i class="fas fa-calendar-check"></i> Confirm Reservation
+                </button>
+
+                <div class="trust-badges">
+                  <div class="trust-badge"><i class="fas fa-lock"></i> SSL Secure</div>
+                  <div class="trust-badge"><i class="fas fa-shield-alt"></i> Best Rate Guaranteed</div>
+                  <div class="trust-badge"><i class="fas fa-undo"></i> Free Cancellation</div>
+                </div>
+
+              </form>
+
+              <div id="bookingSuccess" class="booking-success">
+                <div class="success-icon"><i class="fas fa-champagne-glasses"></i></div>
+                <h2>Reservation Confirmed!</h2>
+                <div class="booking-ref">
+                  <span>Your Booking Reference</span>
+                  <strong>GE-2025-XXXX</strong>
+                </div>
+                <p>A confirmation email has been sent to your inbox. Our concierge team will be in touch within the hour to personalise your stay. We look forward to welcoming you.</p>
+                <a href="index.html" class="btn btn-outline" style="margin-top:28px;"><i class="fas fa-home"></i> Back to Home</a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT: Summary Sidebar -->
+          <div class="booking-sidebar reveal">
+            <div class="summary-card">
+              <div class="summary-img">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&q=80" alt="Grand Élysée Hotel" />
+                <div class="summary-img-overlay"></div>
+              </div>
+              <div class="summary-body">
+                <div class="summary-title">Booking Summary</div>
+
+                <div class="summary-row">
+                  <span>Duration</span>
+                  <span id="summaryNights">1 Night</span>
+                </div>
+                <div class="summary-row">
+                  <span>Room Type</span>
+                  <span id="summaryRoom">—</span>
+                </div>
+                <div class="summary-row">
+                  <span>Breakfast</span>
+                  <span>Included</span>
+                </div>
+                <div class="summary-row">
+                  <span>Wi-Fi</span>
+                  <span>Complimentary</span>
+                </div>
+                <div class="summary-row">
+                  <span>Cancellation</span>
+                  <span style="color:#4ade80;">Free</span>
+                </div>
+
+                <div class="summary-total-row">
+                  <span>Estimated Total</span>
+                  <span class="summary-total-amount" id="summaryTotal">—</span>
+                </div>
+
+                <p class="summary-note">Taxes & fees included. Final price confirmed at check-in. Prices shown in USD.</p>
+              </div>
+            </div>
+
+            <div class="why-direct">
+              <h4><i class="fas fa-award"></i> Why Book Direct?</h4>
+              <ul class="direct-list">
+                <li><i class="fas fa-check-circle"></i> Guaranteed lowest available rate</li>
+                <li><i class="fas fa-check-circle"></i> Room upgrade when available</li>
+                <li><i class="fas fa-check-circle"></i> Early check-in priority</li>
+                <li><i class="fas fa-check-circle"></i> Complimentary welcome amenity</li>
+                <li><i class="fas fa-check-circle"></i> Flexible cancellation policy</li>
+                <li><i class="fas fa-check-circle"></i> Direct contact with our team</li>
+              </ul>
+            </div>
+
+            <!-- Contact Card -->
+            <div style="background:var(--white);border-radius:var(--radius-xl);padding:24px;margin-top:20px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.06);">
+              <p style="font-size:0.78rem;color:var(--gray);margin-bottom:14px;text-align:center;">Need assistance? Call us directly</p>
+              <a href="tel:+33142650000" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;">
+                <i class="fas fa-phone-alt"></i> +33 1 42 65 00 00
+              </a>
+              <p style="font-size:0.72rem;color:var(--gray);text-align:center;margin-top:10px;">Available 24 hours, 7 days a week</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Concierge</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>12 Avenue des Élysées,<br/>Paris, France 75008</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+33 1 42 65 00 00</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>reservations@grandelysee.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>

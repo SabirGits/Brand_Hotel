@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Grand Élysée Hotel — World-Class Amenities</title>
+  <meta name="description" content="Explore the world-class services at Grand Élysée Hotel — fine dining, luxury spa, infinity pool, events, business facilities, and personalised concierge." />
+  <meta name="keywords" content="hotel services, luxury spa, fine dining, infinity pool, business center, events, concierge" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Services | Grand Élysée Hotel" />
+  <meta property="og:description" content="Discover our world-class hotel services." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* ---- Services Page Specific ---- */
+    .service-detail-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .service-detail-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .service-detail-img {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+    }
+    .service-detail-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: var(--transition-slow);
+    }
+    .service-detail-card:hover .service-detail-img img {
+      transform: scale(1.06);
+    }
+    .service-detail-badge {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+    .service-detail-body {
+      padding: 32px 28px 36px;
+    }
+    .service-detail-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .service-detail-body h3 {
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .service-detail-body p {
+      font-size: 0.875rem;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--dark);
+    }
+    .service-features li i {
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+    .service-detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .service-detail-link:hover { gap: 12px; color: var(--gold-dark); }
+
+    .services-full-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    /* Split Feature */
+    .split-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 520px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .split-feature.reverse { direction: rtl; }
+    .split-feature.reverse > * { direction: ltr; }
+    .split-feature-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .split-feature-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: var(--transition-slow);
+    }
+    .split-feature:hover .split-feature-img img { transform: scale(1.04); }
+    .split-feature-content {
+      background: var(--dark);
+      padding: 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .split-feature-content .section-badge {
+      color: var(--gold-light);
+      justify-content: flex-start;
+      margin-bottom: 16px;
+    }
+    .split-feature-content h2 {
+      color: var(--white);
+      margin-bottom: 20px;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    }
+    .split-feature-content p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+    }
+    .split-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .split-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.875rem;
+    }
+    .split-list li i { color: var(--gold); font-size: 0.75rem; }
+
+    /* Packages */
+    .packages-section { background: var(--cream); }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .package-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 40px 32px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .package-card.featured {
+      background: var(--dark);
+      border-color: var(--gold);
+    }
+    .package-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: 20px; right: -28px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 40px;
+      transform: rotate(45deg);
+    }
+    .package-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .package-icon {
+      font-size: 2.5rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .package-card h3 {
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .package-card.featured h3 { color: var(--white); }
+    .package-price {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin: 16px 0;
+      line-height: 1;
+    }
+    .package-price span {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--gray);
+    }
+    .package-card.featured .package-price span { color: rgba(255,255,255,0.4); }
+    .package-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 16px auto;
+    }
+    .package-features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .package-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+    .package-card.featured .package-features-list li { color: rgba(255,255,255,0.65); }
+    .package-features-list li i { color: var(--gold); font-size: 0.75rem; }
+
+    /* Stats Banner */
+    .stats-banner {
+      background: linear-gradient(135deg, var(--dark), var(--dark-2));
+      padding: 72px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    .stat-item { padding: 20px; }
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* Back to top */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: var(--shadow-gold);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+    @media (max-width: 1024px) {
+      .services-full-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .services-full-grid { grid-template-columns: 1fr; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .split-feature { grid-template-columns: 1fr; min-height: auto; }
+      .split-feature.reverse { direction: ltr; }
+      .split-feature-img { height: 300px; }
+      .split-feature-content { padding: 48px 32px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="Grand Élysée Hotel Home">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html" role="menuitem">Home</a></li>
+        <li><a href="about.html" role="menuitem">About</a></li>
+        <li><a href="rooms.html" role="menuitem">Rooms</a></li>
+        <li><a href="services.html" class="active" role="menuitem">Services</a></li>
+        <li><a href="gallery.html" role="menuitem">Gallery</a></li>
+        <li><a href="contact.html" role="menuitem">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta" role="menuitem">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile Navigation">
+    <div class="mobile-menu-header">
+      <span class="logo-main" style="font-family:var(--font-serif);font-size:1.1rem;">Grand <span style="color:var(--gold);">Élysée</span></span>
+      <button class="mobile-close" id="mobileClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+      <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="booking.html" class="btn btn-primary" style="display:block;text-align:center;margin-top:16px;"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- ==================== PAGE HERO ==================== -->
+    <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&q=80');" aria-label="Services Hero">
+      <div class="page-hero-overlay"></div>
+      <div class="container">
+        <div class="page-hero-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Our Offerings</div>
+          <h1 class="reveal">World-Class <em style="color:var(--gold);">Services</em></h1>
+          <p class="reveal">Every detail curated for your pleasure. From sunrise to starlight, we surround you with unparalleled comfort, care, and indulgence.</p>
+          <div class="page-hero-breadcrumb reveal">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Services</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES GRID ==================== -->
+    <section class="section" aria-label="All Services">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:60px;">
+          <div class="section-badge">What We Offer</div>
+          <h2>Exceptional <em style="color:var(--gold);">Experiences</em></h2>
+          <p class="section-subtitle">Each service is thoughtfully designed to exceed your expectations and create lasting memories.</p>
+        </div>
+
+        <div class="services-full-grid">
+
+          <!-- Fine Dining -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Fine Dining at Grand Élysée" loading="lazy" />
+              <span class="service-detail-badge">Signature</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-utensils"></i></div>
+              <h3>Le Jardin — Fine Dining</h3>
+              <p>Our Michelin-starred restaurant offers an exquisite journey through contemporary French cuisine. Award-winning chefs craft each dish using the finest seasonal ingredients.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> Michelin-starred kitchen</li>
+                <li><i class="fas fa-check-circle"></i> 200+ label wine cellar</li>
+                <li><i class="fas fa-check-circle"></i> Private dining rooms available</li>
+                <li><i class="fas fa-check-circle"></i> Breakfast, Lunch & Dinner service</li>
+              </ul>
+              <a href="booking.html" class="service-detail-link">Reserve a Table <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Spa & Wellness -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80" alt="Spa and Wellness" loading="lazy" />
+              <span class="service-detail-badge">Luxury</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-spa"></i></div>
+              <h3>Élysée Spa & Wellness</h3>
+              <p>A 2,400 sqm sanctuary of serenity. Indulge in signature treatments inspired by ancient healing traditions fused with modern techniques for total restoration.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> 18 private treatment rooms</li>
+                <li><i class="fas fa-check-circle"></i> Hammam & hydrotherapy</li>
+                <li><i class="fas fa-check-circle"></i> Expert therapists on hand</li>
+                <li><i class="fas fa-check-circle"></i> Couples packages available</li>
+              </ul>
+              <a href="booking.html" class="service-detail-link">Book a Treatment <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Infinity Pool -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1501117716987-c8c394bb29df?w=800&q=80" alt="Infinity Pool" loading="lazy" />
+              <span class="service-detail-badge">Exclusive</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-water"></i></div>
+              <h3>Rooftop Infinity Pool</h3>
+              <p>Suspended above the city skyline, our rooftop infinity pool offers breathtaking panoramic views. Open year-round with a heated poolside bar and sun terrace.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> Panoramic city views</li>
+                <li><i class="fas fa-check-circle"></i> Heated pool year-round</li>
+                <li><i class="fas fa-check-circle"></i> Poolside cocktail service</li>
+                <li><i class="fas fa-check-circle"></i> Private cabanas for hire</li>
+              </ul>
+              <a href="booking.html" class="service-detail-link">Reserve Cabana <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Events & Weddings -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80" alt="Events and Weddings" loading="lazy" />
+              <span class="service-detail-badge">Events</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-glass-cheers"></i></div>
+              <h3>Events & Weddings</h3>
+              <p>Create unforgettable moments in our stunning Grand Ballroom. From intimate weddings to large corporate galas, our dedicated event team handles every meticulous detail.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> Grand Ballroom for 600 guests</li>
+                <li><i class="fas fa-check-circle"></i> Dedicated wedding planner</li>
+                <li><i class="fas fa-check-circle"></i> Bespoke floral & décor</li>
+                <li><i class="fas fa-check-circle"></i> Bridal suite included</li>
+              </ul>
+              <a href="contact.html" class="service-detail-link">Enquire Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Business Center -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Business Center" loading="lazy" />
+              <span class="service-detail-badge">Corporate</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-briefcase"></i></div>
+              <h3>Executive Business Centre</h3>
+              <p>State-of-the-art facilities for the modern executive. High-speed fibre internet, private boardrooms, and a dedicated business concierge available around the clock.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> 10 private boardrooms</li>
+                <li><i class="fas fa-check-circle"></i> 1 Gbps fibre internet</li>
+                <li><i class="fas fa-check-circle"></i> Professional secretarial services</li>
+                <li><i class="fas fa-check-circle"></i> Audio-visual equipment</li>
+              </ul>
+              <a href="contact.html" class="service-detail-link">Book a Room <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Concierge -->
+          <div class="service-detail-card reveal">
+            <div class="service-detail-img">
+              <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80" alt="Concierge Service" loading="lazy" />
+              <span class="service-detail-badge">Personal</span>
+            </div>
+            <div class="service-detail-body">
+              <div class="service-detail-icon"><i class="fas fa-concierge-bell"></i></div>
+              <h3>Personal Concierge</h3>
+              <p>Your dedicated concierge is available 24 hours a day to curate bespoke experiences — private tours, restaurant reservations, theatre tickets, and luxury transport.</p>
+              <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> 24/7 personal concierge</li>
+                <li><i class="fas fa-check-circle"></i> Luxury car & helicopter transfers</li>
+                <li><i class="fas fa-check-circle"></i> City tours & experiences</li>
+                <li><i class="fas fa-check-circle"></i> VIP restaurant reservations</li>
+              </ul>
+              <a href="contact.html" class="service-detail-link">Get in Touch <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SPA FEATURE SPLIT ==================== -->
+    <section style="padding: 0 0 100px;" aria-label="Spa Feature">
+      <div class="container">
+        <div class="split-feature reveal">
+          <div class="split-feature-img">
+            <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&q=80" alt="Élysée Spa" />
+          </div>
+          <div class="split-feature-content">
+            <div class="section-badge">Signature Experience</div>
+            <h2>The Élysée <em style="color:var(--gold);">Spa Journey</em></h2>
+            <p>Begin with a warm herbal foot ritual, drift into our signature aromatherapy massage, and conclude with a personalised skin treatment. A complete 3-hour voyage of renewal.</p>
+            <ul class="split-list">
+              <li><i class="fas fa-star"></i> Tailored to your skin type & concerns</li>
+              <li><i class="fas fa-star"></i> Premium organic product range</li>
+              <li><i class="fas fa-star"></i> Private steam room access included</li>
+              <li><i class="fas fa-star"></i> Post-treatment refreshments served</li>
+            </ul>
+            <a href="booking.html" class="btn btn-primary">Reserve Your Journey</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DINING FEATURE SPLIT ==================== -->
+    <section style="padding: 0 0 100px;" aria-label="Dining Feature">
+      <div class="container">
+        <div class="split-feature reverse reveal">
+          <div class="split-feature-img">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="Le Jardin Restaurant" />
+          </div>
+          <div class="split-feature-content">
+            <div class="section-badge">Culinary Excellence</div>
+            <h2>Le Jardin <em style="color:var(--gold);">Restaurant</em></h2>
+            <p>Our chef, trained under three Michelin-starred masters in Paris and Tokyo, orchestrates a dining experience that is as much theatre as it is gastronomy. Every plate tells a story.</p>
+            <ul class="split-list">
+              <li><i class="fas fa-star"></i> Seasonal tasting menus — 5 & 8 courses</li>
+              <li><i class="fas fa-star"></i> Sommelier-curated wine pairings</li>
+              <li><i class="fas fa-star"></i> Private dining room for 12 guests</li>
+              <li><i class="fas fa-star"></i> Chef's table experience available</li>
+            </ul>
+            <a href="booking.html" class="btn btn-primary">Reserve Your Table</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS BANNER ==================== -->
+    <section class="stats-banner" aria-label="Service Statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item reveal">
+            <div class="stat-number" data-count="24" data-suffix="/7">0/7</div>
+            <div class="stat-label">Concierge Service</div>
+          </div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-count="18" data-suffix="+">0+</div>
+            <div class="stat-label">Spa Treatment Rooms</div>
+          </div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-count="600" data-suffix="+">0+</div>
+            <div class="stat-label">Event Guests Capacity</div>
+          </div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-count="3" data-suffix="★">0★</div>
+            <div class="stat-label">Michelin Stars</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PACKAGES ==================== -->
+    <section class="section packages-section" aria-label="Service Packages">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:60px;">
+          <div class="section-badge">Curated Packages</div>
+          <h2>All-Inclusive <em style="color:var(--gold);">Experience Packages</em></h2>
+          <p class="section-subtitle">Combine our finest services into one seamless, all-inclusive experience tailored just for you.</p>
+        </div>
+        <div class="packages-grid">
+          <div class="package-card reveal">
+            <div class="package-icon"><i class="fas fa-moon"></i></div>
+            <h3>Escape Retreat</h3>
+            <p style="font-size:0.82rem;color:var(--gray);margin-bottom:0;">Perfect weekend getaway</p>
+            <div class="package-price">$680 <span>/ per night</span></div>
+            <div class="package-divider"></div>
+            <ul class="package-features-list">
+              <li><i class="fas fa-check"></i> Deluxe Room — 2 nights</li>
+              <li><i class="fas fa-check"></i> Daily breakfast for two</li>
+              <li><i class="fas fa-check"></i> 60-min couples massage</li>
+              <li><i class="fas fa-check"></i> Rooftop pool access</li>
+              <li><i class="fas fa-check"></i> Welcome Champagne</li>
+            </ul>
+            <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Book Package</a>
+          </div>
+
+          <div class="package-card featured reveal">
+            <div class="package-icon"><i class="fas fa-crown"></i></div>
+            <h3 style="color:var(--white);">Royal Indulgence</h3>
+            <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:0;">The ultimate luxury escape</p>
+            <div class="package-price">$1,480 <span>/ per night</span></div>
+            <div class="package-divider"></div>
+            <ul class="package-features-list">
+              <li><i class="fas fa-check"></i> Luxury Suite — 3 nights</li>
+              <li><i class="fas fa-check"></i> Full board dining (all meals)</li>
+              <li><i class="fas fa-check"></i> Daily 90-min spa treatment</li>
+              <li><i class="fas fa-check"></i> Private butler service</li>
+              <li><i class="fas fa-check"></i> Airport limousine transfer</li>
+              <li><i class="fas fa-check"></i> City tour & experiences</li>
+            </ul>
+            <a href="booking.html" class="btn btn-primary" style="width:100%;justify-content:center;">Book Package</a>
+          </div>
+
+          <div class="package-card reveal">
+            <div class="package-icon"><i class="fas fa-briefcase"></i></div>
+            <h3>Executive Stay</h3>
+            <p style="font-size:0.82rem;color:var(--gray);margin-bottom:0;">Designed for business travellers</p>
+            <div class="package-price">$520 <span>/ per night</span></div>
+            <div class="package-divider"></div>
+            <ul class="package-features-list">
+              <li><i class="fas fa-check"></i> Junior Suite — flexible stay</li>
+              <li><i class="fas fa-check"></i> Breakfast & business lunch</li>
+              <li><i class="fas fa-check"></i> Boardroom access (4 hrs/day)</li>
+              <li><i class="fas fa-check"></i> Express laundry service</li>
+              <li><i class="fas fa-check"></i> Premium 1 Gbps Wi-Fi</li>
+            </ul>
+            <a href="booking.html" class="btn btn-outline" style="width:100%;justify-content:center;">Book Package</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" aria-label="Call to Action">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Start Your Journey</div>
+          <h2 class="reveal">Experience the <em style="color:var(--gold);">Élysée Difference</em></h2>
+          <p class="reveal">Book your stay and unlock exclusive access to all our world-class services and amenities.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary"><i class="fas fa-bed"></i> Book Your Stay</a>
+            <a href="contact.html" class="btn btn-outline"><i class="fas fa-phone"></i> Speak to Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social" aria-label="Social Media Links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Concierge</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>12 Avenue des Élysées,<br/>Paris, France 75008</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+33 1 42 65 00 00</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>reservations@grandelysee.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+</body>
+</html>

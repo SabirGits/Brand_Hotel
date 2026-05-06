@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Grand Élysée Hotel — A Visual Journey</title>
+  <meta name="description" content="Explore the Grand Élysée Hotel through our curated photo gallery — stunning suites, fine dining, spa, pool, ballroom, and breathtaking city views." />
+  <meta name="keywords" content="hotel gallery, luxury hotel photos, grand elysee gallery, hotel images, suite photos" />
+  <meta name="author" content="Grand Élysée Hotel" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Gallery | Grand Élysée Hotel" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏨</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <style>
+    /* ---- Gallery Page Specific ---- */
+    .gallery-filter {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+    }
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: 40px;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      background: transparent;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+    }
+    .filter-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+      box-shadow: var(--shadow-gold);
+    }
+
+    /* Masonry-style Gallery Grid */
+    .gallery-grid {
+      columns: 3;
+      column-gap: 20px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: var(--transition-slow);
+    }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-info {
+      transform: translateY(8px);
+      transition: var(--transition);
+    }
+    .gallery-item:hover .gallery-item-info { transform: translateY(0); }
+    .gallery-item-info h4 {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .gallery-item-info span {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .gallery-item-zoom {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: var(--transition);
+    }
+    .gallery-item:hover .gallery-item-zoom {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(0,0,0,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightboxImg {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: var(--radius-lg);
+      object-fit: contain;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #lightboxClose {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+    #lightboxClose:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+    .lightbox-nav:hover { background: var(--gold); border-color: var(--gold); }
+    #lightboxPrev { left: 24px; }
+    #lightboxNext { right: 24px; }
+    .lightbox-counter {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Featured highlight strip */
+    .gallery-highlight {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 16px;
+    }
+    .highlight-main {
+      grid-row: 1 / 3;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+    }
+    .highlight-main img,
+    .highlight-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: var(--transition-slow);
+    }
+    .highlight-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .highlight-main:hover img,
+    .highlight-item:hover img { transform: scale(1.04); }
+
+    /* Back to top */
+    #backToTop {
+      position: fixed; bottom: 32px; right: 32px; z-index: 900;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: var(--shadow-gold);
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
+
+    @media (max-width: 1024px) {
+      .gallery-grid { columns: 2; }
+      .gallery-highlight { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .highlight-main { grid-row: auto; }
+    }
+    @media (max-width: 640px) {
+      .gallery-grid { columns: 1; }
+      .gallery-highlight { grid-template-columns: 1fr; }
+      .lightbox-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" id="navbar" role="navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-main">Grand <span>Élysée</span></span>
+        <span class="logo-sub">Hotel & Resorts</span>
+      </a>
+      <ul class="navbar-menu" role="menubar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="booking.html" class="btn btn-primary navbar-cta">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <span class="logo-main" style="font-family:var(--font-serif);font-size:1.1rem;">Grand <span style="color:var(--gold);">Élysée</span></span>
+      <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+      <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="booking.html" class="btn btn-primary" style="display:block;text-align:center;margin-top:16px;"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- ==================== PAGE HERO ==================== -->
+    <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1600&q=80');">
+      <div class="page-hero-overlay"></div>
+      <div class="container">
+        <div class="page-hero-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Visual Journey</div>
+          <h1 class="reveal">Our <em style="color:var(--gold);">Gallery</em></h1>
+          <p class="reveal">Step inside the Grand Élysée through our lens. Every image is a glimpse into the artistry and elegance that defines us.</p>
+          <div class="page-hero-breadcrumb reveal">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Gallery</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURED HIGHLIGHT ==================== -->
+    <section class="section" style="padding-bottom:40px;">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:48px;">
+          <div class="section-badge">Featured</div>
+          <h2>Moments of <em style="color:var(--gold);">Magnificence</em></h2>
+          <p class="section-subtitle">A handpicked selection of our most iconic spaces and experiences.</p>
+        </div>
+        <div class="gallery-highlight reveal">
+          <div class="highlight-main">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1000&q=85" alt="Grand Lobby" />
+          </div>
+          <div class="highlight-item">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Luxury Suite" />
+          </div>
+          <div class="highlight-item">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine Dining" />
+          </div>
+          <div class="highlight-item">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa" />
+          </div>
+          <div class="highlight-item">
+            <img src="https://images.unsplash.com/photo-1501117716987-c8c394bb29df?w=600&q=80" alt="Pool" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GALLERY WITH FILTER ==================== -->
+    <section class="section" style="padding-top:60px;" aria-label="Gallery">
+      <div class="container">
+        <div class="section-header text-center reveal" style="margin-bottom:40px;">
+          <div class="section-badge">Browse All</div>
+          <h2>Explore <em style="color:var(--gold);">Every Corner</em></h2>
+        </div>
+
+        <!-- Filter -->
+        <div class="gallery-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="rooms">Rooms & Suites</button>
+          <button class="filter-btn" data-filter="dining">Dining</button>
+          <button class="filter-btn" data-filter="spa">Spa & Wellness</button>
+          <button class="filter-btn" data-filter="pool">Pool & Leisure</button>
+          <button class="filter-btn" data-filter="events">Events</button>
+          <button class="filter-btn" data-filter="exterior">Exterior</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+
+          <!-- Rooms -->
+          <div class="gallery-item" data-category="rooms">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Royal Penthouse Suite" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Royal Penthouse Suite</h4>
+                <span>Rooms & Suites</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="dining">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Le Jardin Restaurant" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Le Jardin Restaurant</h4>
+                <span>Dining</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="spa">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=700&q=80" alt="Élysée Spa" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Élysée Spa</h4>
+                <span>Spa & Wellness</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="rooms">
+            <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=700&q=80" alt="Luxury Suite Bedroom" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Luxury Suite</h4>
+                <span>Rooms & Suites</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="pool">
+            <img src="https://images.unsplash.com/photo-1501117716987-c8c394bb29df?w=700&q=80" alt="Rooftop Infinity Pool" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Rooftop Infinity Pool</h4>
+                <span>Pool & Leisure</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="events">
+            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=700&q=80" alt="Grand Ballroom" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Grand Ballroom</h4>
+                <span>Events</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="rooms">
+            <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=700&q=80" alt="Suite Bathroom" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Marble Ensuite Bath</h4>
+                <span>Rooms & Suites</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="dining">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=80" alt="Gourmet Cuisine" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Signature Tasting Menu</h4>
+                <span>Dining</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="exterior">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80" alt="Hotel Exterior" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Hotel Façade</h4>
+                <span>Exterior</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="spa">
+            <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=700&q=80" alt="Spa Treatment Room" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Private Treatment Room</h4>
+                <span>Spa & Wellness</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="rooms">
+            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=700&q=80" alt="Junior Suite Living Area" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Junior Suite Living</h4>
+                <span>Rooms & Suites</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="pool">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=80" alt="Poolside Terrace" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Poolside Terrace</h4>
+                <span>Pool & Leisure</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="events">
+            <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=700&q=80" alt="Wedding Setup" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Bespoke Wedding</h4>
+                <span>Events</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="dining">
+            <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=700&q=80" alt="Bar Lounge" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>The Élysée Bar</h4>
+                <span>Dining</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="exterior">
+            <img src="https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=700&q=80" alt="Hotel at Night" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Evening Splendour</h4>
+                <span>Exterior</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="spa">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&q=80" alt="Relaxation Pool" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Hydrotherapy Pool</h4>
+                <span>Spa & Wellness</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="rooms">
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/595e4297762625.5ecd02d95392b.jpg" alt="Penthouse Terrace" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Penthouse City Terrace</h4>
+                <span>Rooms & Suites</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+          <div class="gallery-item" data-category="events">
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=700&q=80" alt="Corporate Conference" loading="lazy" />
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-info">
+                <h4>Executive Conference</h4>
+                <span>Events</span>
+              </div>
+            </div>
+            <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" aria-label="Call to Action">
+      <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1600&q=80');"></div>
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <div class="section-badge reveal" style="color:var(--gold-light);">Your Story Awaits</div>
+          <h2 class="reveal">Be Part of Our <em style="color:var(--gold);">Story</em></h2>
+          <p class="reveal">Every photograph begins with a stay. Reserve your suite and create your own unforgettable memories at Grand Élysée.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+            <a href="booking.html" class="btn btn-primary"><i class="fas fa-bed"></i> Book Your Stay</a>
+            <a href="rooms.html" class="btn btn-outline"><i class="fas fa-door-open"></i> View Rooms</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <div id="lightbox" role="dialog" aria-label="Image Lightbox" aria-modal="true">
+    <button id="lightboxClose" aria-label="Close lightbox"><i class="fas fa-times"></i></button>
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="Gallery Image" />
+    </div>
+    <button class="lightbox-nav" id="lightboxPrev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-nav" id="lightboxNext" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom:4px;">
+            <span class="logo-main">Grand <span>Élysée</span></span>
+            <span class="logo-sub">Hotel & Resorts</span>
+          </div>
+          <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> About Us</a></li>
+            <li><a href="rooms.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Rooms & Suites</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Services</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Gallery</a></li>
+            <li><a href="booking.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Fine Dining</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Spa & Wellness</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Infinity Pool</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Events & Weddings</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Business Center</a></li>
+            <li><a href="services.html"><i class="fas fa-chevron-right" style="font-size:0.65rem;"></i> Concierge</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact Us</h4>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>12 Avenue des Élysées,<br/>Paris, France 75008</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+33 1 42 65 00 00</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>reservations@grandelysee.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Grand Élysée Hotel & Resorts. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="main.js"></script>
+  <script src="gallery.js"></script>
+  <script>
+    /* Enhanced lightbox counter */
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const counterEl = document.getElementById('lightboxCounter');
+      if (!lightbox || !counterEl) return;
+
+      const origOpen = window.__galleryLightboxOpen;
+      const observer = new MutationObserver(() => {
+        if (lightbox.classList.contains('open')) {
+          const imgs = document.querySelectorAll('.gallery-item:not([style*="display: none"]) img');
+          const currentSrc = document.getElementById('lightboxImg').src;
+          let idx = 0;
+          imgs.forEach((img, i) => { if (img.src === currentSrc) idx = i; });
+          counterEl.textContent = (idx + 1) + ' / ' + imgs.length;
+        }
+      });
+      observer.observe(document.getElementById('lightboxImg'), { attributes: true, attributeFilter: ['src'] });
+    })();
+  </script>
+</body>
+</html>
