@@ -278,10 +278,12 @@
       color: var(--dark);
       background: var(--off-white);
       transition: var(--transition);
+      box-sizing: border-box;
     }
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
+      outline: none;
       border-color: var(--gold);
       background: var(--white);
       box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
@@ -297,8 +299,15 @@
       display: none;
     }
     .form-error.show { display: block; }
-    /* Hidden room input */
-    #bookingRoom { display: none; }
+
+    /* Room error */
+    #bookingRoomError {
+      font-size: 0.76rem;
+      color: #e74c3c;
+      margin-bottom: 12px;
+      display: none;
+    }
+    #bookingRoomError.show { display: block; }
 
     /* Booking Sidebar */
     .booking-sidebar {
@@ -318,6 +327,7 @@
     }
     .summary-img img {
       width: 100%; height: 100%; object-fit: cover;
+      transition: all 0.4s ease;
     }
     .summary-img-overlay {
       position: absolute;
@@ -486,7 +496,9 @@
       font-size: 1rem; box-shadow: var(--shadow-gold);
       opacity: 0; visibility: hidden;
       transition: var(--transition);
+      border: none; cursor: pointer;
     }
+    #backToTop.show { opacity: 1; visibility: visible; }
     #backToTop:hover { background: var(--gold-dark); transform: translateY(-4px); }
 
     @media (max-width: 1200px) {
@@ -577,18 +589,18 @@
         </div>
 
         <!-- Progress Steps -->
-        <div class="booking-steps">
-          <div class="step active">
+        <div class="booking-steps" id="bookingSteps">
+          <div class="step active" id="step1">
             <div class="step-num">1</div>
             <div class="step-label">Select Room</div>
           </div>
-          <div class="step-line"></div>
-          <div class="step">
+          <div class="step-line" id="stepLine1"></div>
+          <div class="step" id="step2">
             <div class="step-num">2</div>
             <div class="step-label">Your Details</div>
           </div>
-          <div class="step-line"></div>
-          <div class="step">
+          <div class="step-line" id="stepLine2"></div>
+          <div class="step" id="step3">
             <div class="step-num">3</div>
             <div class="step-label">Confirm</div>
           </div>
@@ -607,11 +619,13 @@
             <div class="room-selector-section reveal">
               <h3>Step 1 — Choose Your Room</h3>
               <p>Select from our curated collection of luxury accommodations. All rooms include complimentary Wi-Fi, daily housekeeping, and access to hotel facilities.</p>
-              <input type="hidden" id="bookingRoom" name="bookingRoom" />
-              <span class="form-error" id="bookingRoomError"></span>
+
+              <!-- Hidden input to store selected room -->
+              <input type="hidden" id="bookingRoom" name="bookingRoom" value="" />
+              <span class="form-error" id="bookingRoomError">Please select a room type above.</span>
 
               <!-- Standard -->
-              <div class="room-select-card" data-room="Standard Room" data-price="180" data-category="standard">
+              <div class="room-select-card" data-room="Standard Room" data-price="180">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=400&q=80" alt="Standard Room" loading="lazy" />
                   <span class="room-select-badge">Best Value</span>
@@ -635,7 +649,7 @@
               </div>
 
               <!-- Deluxe -->
-              <div class="room-select-card" data-room="Deluxe Room" data-price="280" data-category="deluxe">
+              <div class="room-select-card" data-room="Deluxe Room" data-price="280">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400&q=80" alt="Deluxe Room" loading="lazy" />
                 </div>
@@ -658,7 +672,7 @@
               </div>
 
               <!-- Junior Suite -->
-              <div class="room-select-card" data-room="Junior Suite" data-price="420" data-category="suite">
+              <div class="room-select-card" data-room="Junior Suite" data-price="420">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80" alt="Junior Suite" loading="lazy" />
                   <span class="room-select-badge">Popular</span>
@@ -682,7 +696,7 @@
               </div>
 
               <!-- Luxury Suite -->
-              <div class="room-select-card" data-room="Luxury Suite" data-price="580" data-category="suite">
+              <div class="room-select-card" data-room="Luxury Suite" data-price="580">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80" alt="Luxury Suite" loading="lazy" />
                 </div>
@@ -705,7 +719,7 @@
               </div>
 
               <!-- Royal Penthouse -->
-              <div class="room-select-card" data-room="Royal Penthouse" data-price="950" data-category="penthouse">
+              <div class="room-select-card" data-room="Royal Penthouse" data-price="950">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80" alt="Royal Penthouse" loading="lazy" />
                   <span class="room-select-badge">Pinnacle</span>
@@ -729,7 +743,7 @@
               </div>
 
               <!-- Family Room -->
-              <div class="room-select-card" data-room="Family Room" data-price="320" data-category="family">
+              <div class="room-select-card" data-room="Family Room" data-price="320">
                 <div class="room-select-img">
                   <img src="https://images.unsplash.com/photo-1587213811864-4e2a50e6b2c1?w=400&q=80" alt="Family Room" loading="lazy" />
                 </div>
@@ -754,7 +768,7 @@
             </div><!-- end room selector -->
 
             <!-- Guest Details Form -->
-            <div class="booking-form-section reveal">
+            <div class="booking-form-section reveal" id="guestDetailsSection">
               <h3><i class="fas fa-user-circle" style="color:var(--gold);margin-right:10px;"></i>Step 2 — Your Details</h3>
 
               <form id="bookingForm" novalidate>
@@ -775,7 +789,7 @@
                 <div class="form-row">
                   <div class="form-group">
                     <label for="bookingPhone">Phone Number <span>*</span></label>
-                    <input type="tel" id="bookingPhone" name="bookingPhone" placeholder="+33 1 XX XX XX XX" autocomplete="tel" />
+                    <input type="tel" id="bookingPhone" name="bookingPhone" placeholder="+91 98765 43210" autocomplete="tel" />
                     <span class="form-error" id="bookingPhoneError"></span>
                   </div>
                   <div class="form-group">
@@ -829,12 +843,13 @@
 
               </form>
 
+              <!-- Success Message -->
               <div id="bookingSuccess" class="booking-success">
                 <div class="success-icon"><i class="fas fa-champagne-glasses"></i></div>
                 <h2>Reservation Confirmed!</h2>
                 <div class="booking-ref">
                   <span>Your Booking Reference</span>
-                  <strong>GE-2025-XXXX</strong>
+                  <strong id="bookingRefText">GE-XXXXXXXX</strong>
                 </div>
                 <p>A confirmation email has been sent to your inbox. Our concierge team will be in touch within the hour to personalise your stay. We look forward to welcoming you.</p>
                 <a href="index.html" class="btn btn-outline" style="margin-top:28px;"><i class="fas fa-home"></i> Back to Home</a>
@@ -847,15 +862,23 @@
           <div class="booking-sidebar reveal">
             <div class="summary-card">
               <div class="summary-img">
-                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&q=80" alt="Grand Élysée Hotel" />
+                <img id="summaryImage" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&q=80" alt="Grand Élysée Hotel" />
                 <div class="summary-img-overlay"></div>
               </div>
               <div class="summary-body">
                 <div class="summary-title">Booking Summary</div>
 
                 <div class="summary-row">
+                  <span>Check-in</span>
+                  <span id="summaryCheckin">—</span>
+                </div>
+                <div class="summary-row">
+                  <span>Check-out</span>
+                  <span id="summaryCheckout">—</span>
+                </div>
+                <div class="summary-row">
                   <span>Duration</span>
-                  <span id="summaryNights">1 Night</span>
+                  <span id="summaryNights">—</span>
                 </div>
                 <div class="summary-row">
                   <span>Room Type</span>
@@ -896,12 +919,20 @@
             </div>
 
             <!-- Contact Card -->
+           <!-- Contact Card -->
             <div style="background:var(--white);border-radius:var(--radius-xl);padding:24px;margin-top:20px;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.06);">
               <p style="font-size:0.78rem;color:var(--gray);margin-bottom:14px;text-align:center;">Need assistance? Call us directly</p>
-              <a href="tel:+33142650000" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;">
-                <i class="fas fa-phone-alt"></i> +33 1 42 65 00 00
-              </a>
-              <p style="font-size:0.72rem;color:var(--gray);text-align:center;margin-top:10px;">Available 24 hours, 7 days a week</p>
+            
+              <a 
+                href="tel:+917410945190"
+                onclick="window.location.href='tel:+917410945190'; return false;"
+                class="btn btn-primary"
+                style="width:100%;justify-content:center;padding:14px;">
+                <i class="fas fa-phone-alt"></i> +91 74109 45190 </a>
+            
+              <p style="font-size:0.72rem;color:var(--gray);text-align:center;margin-top:10px;">
+                Available 24 hours, 7 days a week
+              </p>
             </div>
           </div>
 
@@ -922,11 +953,11 @@
           </div>
           <p>A sanctuary of luxury and refinement, where every moment is crafted to create memories that last a lifetime.</p>
           <div class="footer-social">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1KB9W2t83J/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a class="instagram" href="https://www.instagram.com/muh_sabir2967" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a class="btn whatsapp" style="padding: 18px;" href="https://wa.me/917410945190?text=Hello%20Sabir" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a class="linkedin" href="https://www.linkedin.com/in/sabir-khan-2a4339389" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://youtube.com/@mr_sabir_salaar?si=1ppvbSLJOXQOqHdy" target="_blank"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
         <div>
@@ -954,7 +985,7 @@
         <div>
           <h4 class="footer-heading">Contact Us</h4>
           <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>12 Avenue des Élysées,<br/>Paris, France 75008</span></div>
-          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+33 1 42 65 00 00</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+9174109 45190 </span></div>
           <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>reservations@grandelysee.com</span></div>
           <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Check-in: 3:00 PM<br/>Check-out: 12:00 PM</span></div>
         </div>
@@ -972,7 +1003,354 @@
 
   <button id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
 
+  <!-- External Scripts -->
   <script src="main.js"></script>
-  <script src="booking.js"></script>
+
+  <!-- ==================== BOOKING JS (Inline — no backend needed) ==================== -->
+  <script>
+  'use strict';
+
+  /* ----------------------------------------------------------
+     ROOM IMAGES MAP
+  ---------------------------------------------------------- */
+  var roomImages = {
+    'Standard Room':   'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=500&q=80',
+    'Deluxe Room':     'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&q=80',
+    'Junior Suite':    'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80',
+    'Luxury Suite':    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80',
+    'Royal Penthouse': 'https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=500&q=80',
+    'Family Room':     'https://images.unsplash.com/photo-1587213811864-4e2a50e6b2c1?w=500&q=80'
+  };
+
+  var selectedPrice = 0;
+
+  /* ----------------------------------------------------------
+     HELPER: Format date for display
+  ---------------------------------------------------------- */
+  function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    var d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  /* ----------------------------------------------------------
+     HELPER: Get nights between checkin / checkout
+  ---------------------------------------------------------- */
+  function getNights() {
+    var ci = document.getElementById('bookingCheckin');
+    var co = document.getElementById('bookingCheckout');
+    if (!ci || !co || !ci.value || !co.value) return 0;
+    var diff = (new Date(co.value) - new Date(ci.value)) / (1000 * 60 * 60 * 24);
+    return diff > 0 ? Math.round(diff) : 0;
+  }
+
+  /* ----------------------------------------------------------
+     UPDATE SUMMARY SIDEBAR
+  ---------------------------------------------------------- */
+  function updateSummary() {
+    var nights = getNights();
+    var total  = selectedPrice * nights;
+
+    var ciVal  = document.getElementById('bookingCheckin').value;
+    var coVal  = document.getElementById('bookingCheckout').value;
+
+    var summaryNights   = document.getElementById('summaryNights');
+    var summaryTotal    = document.getElementById('summaryTotal');
+    var summaryCheckin  = document.getElementById('summaryCheckin');
+    var summaryCheckout = document.getElementById('summaryCheckout');
+
+    if (summaryCheckin)  summaryCheckin.textContent  = ciVal  ? formatDate(ciVal)  : '—';
+    if (summaryCheckout) summaryCheckout.textContent = coVal  ? formatDate(coVal)  : '—';
+
+    if (summaryNights) {
+      if (nights === 0) summaryNights.textContent = '—';
+      else summaryNights.textContent = nights === 1 ? '1 Night' : nights + ' Nights';
+    }
+
+    if (summaryTotal) {
+      summaryTotal.textContent = (selectedPrice > 0 && nights > 0)
+        ? '$' + total.toLocaleString()
+        : '—';
+    }
+  }
+
+  /* ----------------------------------------------------------
+     PROGRESS STEPS
+  ---------------------------------------------------------- */
+  function updateSteps(activeStep) {
+    for (var i = 1; i <= 3; i++) {
+      var stepEl = document.getElementById('step' + i);
+      if (!stepEl) continue;
+      stepEl.classList.remove('active', 'done');
+      if (i < activeStep)  stepEl.classList.add('done');
+      if (i === activeStep) stepEl.classList.add('active');
+    }
+    for (var j = 1; j <= 2; j++) {
+      var lineEl = document.getElementById('stepLine' + j);
+      if (!lineEl) continue;
+      if (j < activeStep) lineEl.classList.add('done');
+      else lineEl.classList.remove('done');
+    }
+  }
+
+  /* ----------------------------------------------------------
+     ROOM CARD SELECTION
+  ---------------------------------------------------------- */
+  var roomCards = document.querySelectorAll('.room-select-card');
+
+  roomCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+
+      // Remove selected from all cards
+      roomCards.forEach(function(c) { c.classList.remove('selected'); });
+
+      // Select clicked card
+      card.classList.add('selected');
+
+      var roomName  = card.getAttribute('data-room');
+      var roomPrice = parseInt(card.getAttribute('data-price'), 10);
+
+      // Update hidden input
+      var roomInput = document.getElementById('bookingRoom');
+      if (roomInput) roomInput.value = roomName;
+
+      // Hide room error
+      var roomErr = document.getElementById('bookingRoomError');
+      if (roomErr) roomErr.classList.remove('show');
+
+      // Update sidebar room name
+      var summaryRoom = document.getElementById('summaryRoom');
+      if (summaryRoom) summaryRoom.textContent = roomName;
+
+      // Update sidebar image
+      var summaryImg = document.getElementById('summaryImage');
+      if (summaryImg && roomImages[roomName]) {
+        summaryImg.src = roomImages[roomName];
+        summaryImg.alt = roomName;
+      }
+
+      selectedPrice = roomPrice;
+      updateSummary();
+
+      // Update progress to step 2
+      updateSteps(2);
+
+      // Scroll to form section
+      var formSection = document.getElementById('guestDetailsSection');
+      if (formSection) {
+        setTimeout(function() {
+          formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
+     DATE INPUTS — update summary on change
+  ---------------------------------------------------------- */
+  var checkinInput  = document.getElementById('bookingCheckin');
+  var checkoutInput = document.getElementById('bookingCheckout');
+  var today = new Date().toISOString().split('T')[0];
+
+  if (checkinInput)  checkinInput.min  = today;
+  if (checkoutInput) checkoutInput.min = today;
+
+  if (checkinInput) {
+    checkinInput.addEventListener('change', function() {
+      if (!checkoutInput) return;
+      var nextDay = new Date(checkinInput.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      checkoutInput.min = nextDay.toISOString().split('T')[0];
+      if (checkoutInput.value && new Date(checkoutInput.value) <= new Date(checkinInput.value)) {
+        checkoutInput.value = nextDay.toISOString().split('T')[0];
+      }
+      updateSummary();
+    });
+  }
+
+  if (checkoutInput) {
+    checkoutInput.addEventListener('change', updateSummary);
+  }
+
+  /* ----------------------------------------------------------
+     FORM VALIDATION
+  ---------------------------------------------------------- */
+  var rules = {
+    bookingRoom: {
+      required: true,
+      message: 'Please select a room type above.'
+    },
+    bookingName: {
+      required: true,
+      minLength: 3,
+      message: 'Please enter your full name (min. 3 characters).'
+    },
+    bookingEmail: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      message: 'Please enter a valid email address.'
+    },
+    bookingPhone: {
+      required: true,
+      pattern: /^[\+]?[\d\s\-\(\)]{7,15}$/,
+      message: 'Please enter a valid phone number.'
+    },
+    bookingGuests: {
+      required: true,
+      message: 'Please select number of guests.'
+    },
+    bookingCheckin: {
+      required: true,
+      message: 'Please select a check-in date.'
+    },
+    bookingCheckout: {
+      required: true,
+      message: 'Please select a check-out date.',
+      afterField: 'bookingCheckin',
+      afterMessage: 'Check-out must be after check-in.'
+    }
+  };
+
+  function validateField(fieldId) {
+    var rule  = rules[fieldId];
+    if (!rule) return true;
+
+    var input = document.getElementById(fieldId);
+    var errEl = document.getElementById(fieldId + 'Error');
+    if (!input) return true;
+
+    var value   = input.value.trim();
+    var valid   = true;
+    var message = rule.message;
+
+    if (rule.required && !value) {
+      valid = false;
+    } else if (rule.minLength && value.length < rule.minLength) {
+      valid = false;
+    } else if (rule.pattern && !rule.pattern.test(value)) {
+      valid = false;
+    } else if (rule.afterField) {
+      var other = document.getElementById(rule.afterField);
+      if (other && value && other.value) {
+        if (new Date(value) <= new Date(other.value)) {
+          valid   = false;
+          message = rule.afterMessage;
+        }
+      }
+    }
+
+    if (!valid) {
+      input.classList.add('error');
+      if (errEl) { errEl.textContent = message; errEl.classList.add('show'); }
+    } else {
+      input.classList.remove('error');
+      if (errEl) errEl.classList.remove('show');
+    }
+
+    return valid;
+  }
+
+  // Attach live validation listeners
+  Object.keys(rules).forEach(function(fieldId) {
+    var input = document.getElementById(fieldId);
+    if (!input) return;
+    input.addEventListener('blur',   function() { validateField(fieldId); });
+    input.addEventListener('change', function() { validateField(fieldId); });
+    input.addEventListener('input',  function() {
+      if (input.classList.contains('error')) validateField(fieldId);
+    });
+  });
+
+  /* ----------------------------------------------------------
+     GENERATE BOOKING REFERENCE
+  ---------------------------------------------------------- */
+  function generateRef() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var ref = 'GE-';
+    for (var i = 0; i < 8; i++) {
+      ref += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return ref;
+  }
+
+  /* ----------------------------------------------------------
+     FORM SUBMIT
+  ---------------------------------------------------------- */
+  var bookingForm = document.getElementById('bookingForm');
+
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Validate all fields
+      var allValid = true;
+      Object.keys(rules).forEach(function(fieldId) {
+        if (!validateField(fieldId)) allValid = false;
+      });
+
+      // Check terms
+      var terms = document.getElementById('bookingTerms');
+      if (terms && !terms.checked) {
+        alert('Please agree to the Terms & Conditions to continue.');
+        terms.focus();
+        return;
+      }
+
+      if (!allValid) {
+        var firstError = bookingForm.querySelector('.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
+        }
+        return;
+      }
+
+      // Show loading
+      var submitBtn   = bookingForm.querySelector('[type="submit"]');
+      var originalTxt = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      submitBtn.disabled  = true;
+
+      // Update steps to confirm
+      updateSteps(3);
+
+      // Simulate processing (1.5s)
+      setTimeout(function() {
+        var ref = generateRef();
+        var refEl = document.getElementById('bookingRefText');
+        if (refEl) refEl.textContent = ref;
+
+        // Hide form
+        bookingForm.style.display = 'none';
+
+        // Show success
+        var successEl = document.getElementById('bookingSuccess');
+        if (successEl) {
+          successEl.classList.add('show');
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        submitBtn.disabled  = false;
+        submitBtn.innerHTML = originalTxt;
+      }, 1500);
+    });
+  }
+
+  /* ----------------------------------------------------------
+     BACK TO TOP BUTTON
+  ---------------------------------------------------------- */
+  var backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) backToTopBtn.classList.add('show');
+      else backToTopBtn.classList.remove('show');
+    });
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  </script>
+
 </body>
 </html>

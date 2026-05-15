@@ -252,3 +252,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }, 600);
   });
 })();
+

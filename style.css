@@ -252,7 +252,7 @@ p {
 
 .btn-outline {
   background: transparent;
-  color: var(--white);
+  color: #666;
   border: 1.5px solid var(--gold);
 }
 
@@ -891,6 +891,7 @@ p {
   align-items: baseline;
   gap: 6px;
   margin-bottom: 20px;
+  padding-left: 20px;
 }
 
 .price-amount {
